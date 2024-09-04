@@ -1,0 +1,31 @@
+# Ignore build output directories
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.vspscc
+*.vssscc
+
+# Build result files
+*.exe
+*.dll
+*.pdb
+*.class
+
+# Other files that are usually ignored
+*.log
+*.cache
+*.msp
+*.msi
+*.pdb
+
+# Visual Studio folders
+.vscode/
+.vs/
