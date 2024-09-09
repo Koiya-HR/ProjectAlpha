@@ -25,16 +25,24 @@ namespace ProjectAlpha
         // monster attack method
         public void MonsterAttack(Player player)
         {
-            int damage = rnd.Next(1, MaximumDamage + 1);
+            int damage = rnd.Next(0, MaximumDamage + 1);
             player.CurrentHitPoints -= damage;
-
-            if (player.CurrentHitPoints <= 0)
+            if (damage == 0)
             {
-                Console.WriteLine("The monster has defeated the player!");
+                Console.WriteLine("The monster attacked but missed.");
             }
             else
             {
-                Console.WriteLine($"The monster attacked the player for {damage} damage. The player's hit points are now {player.CurrentHitPoints}.");
+                Console.WriteLine($"The monster attacked and did {damage} damage.");
+            }
+
+            if (player.CurrentHitPoints <= 0)
+            {
+                Console.WriteLine("The monster has killed you.");
+            }
+            else
+            {
+                Console.WriteLine($"Player currently has {player.CurrentHitPoints} hit points remaining.");
             }
         }
     }
