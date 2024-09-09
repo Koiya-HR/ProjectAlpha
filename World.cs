@@ -18,6 +18,10 @@ public static class World
     public const int QUEST_ID_CLEAR_FARMERS_FIELD = 2;
     public const int QUEST_ID_COLLECT_SPIDER_SILK = 3;
 
+    public const int QUEST_NPC_DIALOGUE_FARMER_ID = 1;
+    public const int QUEST_NPC_DIALOGUE_ALCHEMIST_ID = 2;
+    public const int QUEST_NPC_DIALOGUE_SPIDER_ID = 3;
+
     public const int LOCATION_ID_HOME = 1;
     public const int LOCATION_ID_TOWN_SQUARE = 2;
     public const int LOCATION_ID_GUARD_POST = 3;
@@ -65,7 +69,10 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                 "Clear the alchemist's garden",
-                "Kill rats in the alchemist's garden ");
+                "Kill rats in the alchemist's garden ",
+                MonsterByID(MONSTER_ID_RAT),
+                3,
+                1);
 
 
 
@@ -73,14 +80,20 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_FARMERS_FIELD,
                 "Clear the farmer's field",
-                "Kill snakes in the farmer's field");
+                "Kill snakes in the farmer's field",
+                MonsterByID(MONSTER_ID_SNAKE),
+                3,
+                2);
 
 
         Quest clearSpidersForest =
                     new Quest(
                         QUEST_ID_COLLECT_SPIDER_SILK,
                         "Collect spider silk",
-                        "Kill spiders in the spider forest");
+                        "Kill spiders in the spider forest",
+                        MonsterByID(MONSTER_ID_GIANT_SPIDER),
+                        3,
+                        3);
 
 
         Quests.Add(clearAlchemistGarden);
