@@ -10,7 +10,7 @@ public class Skill
     public Skill(string name, string description, int requiredXP)
     {
 
-        Name        = name;
+        Name = name;
         Description = description;
         RequiredXP  = requiredXP;
 

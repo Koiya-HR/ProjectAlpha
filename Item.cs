@@ -7,7 +7,7 @@ public class Item
 
     public Item(string? name, string? description)
     {
-        Name        = name;
+        Name = name;
         Description = description;
     }
 

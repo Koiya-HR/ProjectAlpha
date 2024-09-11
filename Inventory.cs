@@ -64,10 +64,10 @@ namespace ProjectAlpha;
 public class Inventory
 {
 
-	public int	  Storage;
+	public int Storage;
 	public object Current;
 
-	List<Skill> Skills			  = new();
+	List<Skill> Skills = new();
 	Dictionary<object, int> Items = new();
 
 	public Inventory(int storage) => Storage = storage;
