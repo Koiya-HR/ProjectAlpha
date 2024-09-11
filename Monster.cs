@@ -19,12 +19,7 @@ namespace ProjectAlpha
         /// boolean om te checken of het monster nog leeft
         /// </summary>
         public bool IsAlive;
-        var killRewards = new List<string>()
-                    {
-                        "London",
-                        "Mumbai",
-                        "Chicago"                    
-                    };
+        List<string> killRewards = new List<string>();
 
         // constructor
         public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints)
