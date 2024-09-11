@@ -1,21 +1,28 @@
 namespace ProjectAlpha;
 
-class Player {
+// TODO: docs
+public class Player {
 
-    public int MaximumHitPoint;
-    public int CurrentHitPoints;
+    public int    MaximumHitPoint;
+    public int    CurrentHitPoints;
     public string Name;
 
-    public Weapon CurrentWeapon;
+    public Weapon?  CurrentWeapon;
     public Location CurrentLocation;
+    public Quest?   CurrentQuest;
 
-    public Player(string name, Weapon weapon, Location location, int hits) {
+    public Inventory? Inventory;
+
+    public Player(string name, Weapon currentWeapon, Location currentLocation, int currentHitPoints, Inventory inventory) {
         
-        this.Name = name;
-        this.CurrentWeapon = weapon;
-        this.CurrentLocation = location;
-        this.CurrentHitPoints = hits;
+        this.Name             = name;
+        this.Inventory        = inventory;
+        this.CurrentWeapon    = currentWeapon;
+        this.CurrentLocation  = currentLocation;
+        this.CurrentHitPoints = currentHitPoints;
 
     }
+    public Player(string name, Weapon currentWeapon, Location currentLocation, int currentHitPoints)
+        : this(name, currentWeapon, currentLocation, currentHitPoints, new Inventory()) { }
 
 }
