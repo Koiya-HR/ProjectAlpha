@@ -2,18 +2,29 @@ namespace ProjectAlpha
 {
     public class Monster
     {
-        // field voor rng
+        /// <summary>
+        /// field voor rng
+        /// </summary>
         Random rnd = new();
 
-        // fields voor monster properties
+        /// <summary>
+        /// fields voor monster properties
+        /// </summary>
         public int ID;
         public string Name;
         public int MaximumDamage;
         public int CurrentHitPoints;
         public int MaximumHitPoints;
-
-        // boolean om te checken of het monster nog leeft
+        /// <summary>
+        /// boolean om te checken of het monster nog leeft
+        /// </summary>
         public bool IsAlive;
+        var killRewards = new List<string>()
+                    {
+                        "London",
+                        "Mumbai",
+                        "Chicago"                    
+                    };
 
         // constructor
         public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints)
@@ -26,13 +37,15 @@ namespace ProjectAlpha
             IsAlive = currentHitPoints > 0;
         }
 
-        // monster attack method
+        /// <summary>
+        /// monster attack method
+        /// </summary>
+        /// <param name="player"></param>
         public void MonsterAttack(Player player)
         {
             if (!IsAlive)
             {
                 Console.WriteLine("The monster is dead and cannot attack.");
-                return;
             }
 
             int damage = rnd.Next(0, MaximumDamage + 1);
@@ -66,7 +79,10 @@ namespace ProjectAlpha
             }
         }
 
-        // Method om monster te kunnen attacken, deze versie is tijdelijk want er is nog geen player class
+        /// <summary>
+        /// Method om monster te kunnen attacken, deze versie is tijdelijk want er is nog geen player class
+        /// </summary>
+        /// <param name="damage">Hoeveel dmg</param>
         public void TakeDamage(int damage)
         {
             if (!IsAlive)
