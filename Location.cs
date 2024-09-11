@@ -22,7 +22,7 @@ public class Location {
     public Location? LocationToSouth;
     public Location? LocationToWest;
 
-    public Location(int id, string name, string description, Quest? questavailablehere, Monster? monsterlivinghere ) {
+    public Location(int id, string name, string description, Quest? questavailablehere, Monster? monsterlivinghere) {
         this.ID = id;
         this.Name = name;
         this.Description = description;
@@ -30,7 +30,15 @@ public class Location {
         this.MonsterLivingHere = monsterlivinghere;
     }
 
-    public void Map() {
+
+    public void PrintPossibleLocations(Dictionary<int, List<Location>> validDirections, int key) {
+        Console.WriteLine($"From here you can go to:\n");
+        for (int i = 0; i < validDirections[key].Count; i++) {
+            Console.WriteLine(validDirections[key][i].Name);
+        }
+    }
+
+    public List<Location>? Map() {
         Dictionary<int, List<Location>> validDirections = new Dictionary<int, List<Location>>() {
             { 1, [this.LocationToNorth] },
             { 2, [this.LocationToSouth, this.LocationToEast, this.LocationToNorth, this.LocationToWest] },
@@ -46,59 +54,44 @@ public class Location {
         Console.WriteLine($"You are currently at: {this.Name} (X)");
         switch (this.ID) {
             case 1:
-                Console.WriteLine($"From here you can go to:\n- {validDirections[1][0].Name} (T)");
-                Console.WriteLine("  |\n  |\n--T---\n  X");
-                break;
+                PrintPossibleLocations(validDirections, 1);
+                Console.WriteLine("\n  |\n  |\n--T---\n  X");
+                return validDirections[1];
             case 2:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[2][0].Name} (H)");
-                Console.WriteLine($"- {validDirections[2][1].Name} (G)");
-                Console.WriteLine($"- {validDirections[2][2].Name} (A)");
-                Console.WriteLine($"- {validDirections[2][3].Name} (F)");
+                PrintPossibleLocations(validDirections, 2);
                 Console.WriteLine("\n  |\n  A\n-FXG--\n  H");
-                break;
+                return validDirections[2];
             case 3:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[3][0].Name} (B)");
-                Console.WriteLine($"- {validDirections[3][1].Name} (T)");             
+                PrintPossibleLocations(validDirections, 3); 
                 Console.WriteLine("\n  |\n  |\n--TXB-\n  |");
-                break;
+                return validDirections[3];
             case 4:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[4][0].Name} (T)");
-                Console.WriteLine($"- {validDirections[4][1].Name} (P)");
+                PrintPossibleLocations(validDirections, 4);
                 Console.WriteLine("\n  P\n  X\n--T---\n  |");
-                break;                
+                return validDirections[4];
             case 5:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[5][0].Name} (A)");
+                PrintPossibleLocations(validDirections, 5);
                 Console.WriteLine("\n  X\n  A\n--+---\n  |");
-                break;
+                return validDirections[5];
             case 6:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[6][0].Name} (T)");
-                Console.WriteLine($"- {validDirections[6][1].Name} (V)");
+                PrintPossibleLocations(validDirections, 6);
                 Console.WriteLine("  |\n  |\nVXT---\n  |");
-                break;
+                return validDirections[6];
             case 7:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[7][0].Name} (F)");
+                PrintPossibleLocations(validDirections, 7);
                 Console.WriteLine("\n  |\n  |\nXF+---\n  |");
-                break;
+                return validDirections[7];
             case 8:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[8][0].Name} (G)");
-                Console.WriteLine($"- {validDirections[8][1].Name} (S)");
+                PrintPossibleLocations(validDirections, 8);
                 Console.WriteLine("\n  |\n  |\n--+GXS\n  |");
-                break;
+                return validDirections[8];
             case 9:
-                Console.WriteLine($"From here you can go to:\n");
-                Console.WriteLine($"- {validDirections[9][0].Name} (B)");
+                PrintPossibleLocations(validDirections, 9);
                 Console.WriteLine("\n  |\n  |\n--+-BX\n  |");
-                break;
+                return validDirections[8];
             default:
                 Console.WriteLine("Error");
-                break;
+                return null;
         }
     }
 }
