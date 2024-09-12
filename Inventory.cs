@@ -1,71 +1,9 @@
-/// <summary>
-///		This class is the centralized entity-specific registry/collection
-///		for in-game obtainable items.
-/// </summary>
-///
-/// <attr id="Storage">Amount of items/skills the player can hold</attr>
-/// <attr id="Current">Object handle to currently held item</attr>
-/// <attr id="Items">Multi-type collection of all obtainable items the player has</attr>
-/// 
-/// <constructor>
-///		<base>
-///			<param name="Storage" ref=attr:Storage></param>
-///		</base>
-///		<overload>
-///			<para>Allow creation without specified storage (default: 8)</para>
-///		</overload>
-/// </constructor>
-/// 
-/// <div sort="standard">
-/// 
-///		<method id="Select">
-///			<param name="slot">Offset relative to the 0-index (inside? joke;)</param>
-///			<summary>
-///				This will simply modify the this.Current variable and 
-///				assign the new object (beware, this object can be of any type)
-///			</summary>
-///		</method>
-///		
-///		<method id="Add">
-///			<param name="item">An object of any type to the inventory, this can be filtered afterwards</param>
-///			<summary>
-///				This will append any provided object with any provided type to the inventory;
-///				all items except skills will be verified on quantity before appending.
-///			</summary>
-///		</method>
-///		
-///		<method id="Del">
-///			<param name="Item" ref=attr:Storage></param>
-///			<summary>
-///				This will delete any provided item from the player's inventory;
-///				all items except skills can be deleted.
-///			</summary>
-///		</method>
-///		
-///		<method id="Filter">
-///			<param name="type">A type i.e. typeof(<type>); e.g. typeof(Skill)</param>
-///			<summary>
-///				This will filter out a specific type from the player's inventory; 
-///				with this, you can easily inspect weapons or items individually.
-///			</summary>
-///		</method>
-///		
-///	</div>
-///		
-/// <method id="ToString" sort="override">
-///		<summary>
-///			This overwritten method acts as the representation 
-///			of the inventory on the player's terminal
-///		</summary>
-/// </method>
-///
-
 namespace ProjectAlpha;
 public class Inventory
 {
 
 	public int Storage;
-	public object Current;
+	public object? Current;
 
 	List<Skill> Skills = new();
 	Dictionary<object, int> Items = new();
@@ -75,27 +13,27 @@ public class Inventory
 
 	public bool Select(int slot)
 	{
-
 		if (slot > Storage) 
 			return false;
 		
 		Current = Items.ElementAt(slot);
 		return true;
-
 	}
 
 	public bool Add(object item)
 	{
-
-		if (item.GetType() == typeof(Skill))
+		// add skills separately
+		if (item is Skill skill)
 		{
-			Skills.Add(item as Skill);
+			Skills.Add(skill);
 			return true;
 		}
 
+		// disallow bloat
 		if (Items.Count + 1 > Storage) 
 			return false;
 
+		// increment or introduce
 		if (Items.ContainsKey(item))
 			Items[item]++;
 		
@@ -103,15 +41,15 @@ public class Inventory
 			Items.Add(item, 1);
 
 		return true;
-
 	}
 
     public object? Del(object item)
     {
-
+		// don't delete non-existent items
 		if (!Items.ContainsKey(item))
 			return null;
 
+		// decrement quantity or delete entirely
 		object removal = Items[item];
 		if (Items[item] > 1)
 		{
@@ -123,39 +61,49 @@ public class Inventory
 			Items.Remove(item);
 			return removal;
 		}
-
     }
 
 	public List<object>? Filter(Type type)
 	{
-
-		if (!new List<Type>() { typeof(Weapon) }.Contains(type))
+		// abort on invalid type 
+		if (!new List<Type>() { typeof(Weapon), typeof(Item) }.Contains(type))
 			return null;
 
+		// construct a list of explicitly requested type
 		List<object> list = new();
 		foreach (var item in Items)
-		{
-
 			if (item.Key.GetType() == type)
 				list.Add(item);
 
-		}
-
 		return list;
-
 	}
 
-    public override string ToString()
-    {
-
-		// work in progress.. stfu
-		string str = $"";
-		foreach (object item in Items)
+	public void Represent() => Represent(typeof(Nullable));
+	public void Represent(Type type)
+	{
+		if (type == typeof(Skill))
 		{
-			str += item.ToString() + "\n";
+			// organize (sort) safely
+			SortedList<int, Skill> sorted = new();
+			foreach (var s in Skills) sorted.Add(s.RequiredXP, s);
+
+			// construct skill-tree
+			Console.Clear();
+			foreach (Skill skill in sorted.Values)
+				Console.WriteLine(skill.ToString());
+			
 		}
-
-		return str;
-
-    }
+		else if (type == typeof(Nullable))
+		{
+			// everything
+		}
+		else
+		{
+			foreach (var item in Items)
+				if (item.GetType() == type)
+				{
+					// specific
+				}
+		}
+	}
 }

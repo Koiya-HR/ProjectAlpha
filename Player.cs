@@ -25,4 +25,6 @@ public class Player {
     public Player(string name, Weapon currentWeapon, Location currentLocation, int currentHitPoints)
         : this(name, currentWeapon, currentLocation, currentHitPoints, new Inventory()) { }
 
+ 
+
 }
