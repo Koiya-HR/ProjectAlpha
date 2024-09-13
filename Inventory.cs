@@ -6,6 +6,7 @@ public class Inventory
 	public object? Current;
 
 	List<Skill> Skills = new();
+	Dictionary<Quest, bool> Quests = new();
 	Dictionary<object, int> Items = new();
 
 	public Inventory(int storage) => Storage = storage;
@@ -13,7 +14,7 @@ public class Inventory
 
 	public bool Select(int slot)
 	{
-		if (slot > Storage) 
+		if (slot > Storage)
 			return false;
 		
 		Current = Items.ElementAt(slot);
@@ -26,6 +27,12 @@ public class Inventory
 		if (item is Skill skill)
 		{
 			Skills.Add(skill);
+			return true;
+		}
+
+		if (item is Quest quest)
+		{
+			Quests.Add(quest, false);
 			return true;
 		}
 
@@ -95,7 +102,13 @@ public class Inventory
 		}
 		else if (type == typeof(Nullable))
 		{
-			// everything
+			foreach (var item in Items.Select((value, idx) => new {idx, value}))
+			{
+				if (item.idx == 8)
+					Console.WriteLine();
+
+				Console.Write($"|{item.value.Key.Name}({item.value.Value})| ");
+			}
 		}
 		else
 		{
