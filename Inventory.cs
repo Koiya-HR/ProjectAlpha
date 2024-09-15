@@ -104,11 +104,8 @@ public class Inventory
 		{
 			foreach (var item in Items.Select((value, idx) => new {idx, value}))
 			{
-				if (item.idx == 8)
-					Console.WriteLine();
-
-				Console.Write($"|{item.value.Key.Name}({item.value.Value})| ");
-			}
+				// everything
+            }
 		}
 		else
 		{
