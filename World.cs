@@ -72,6 +72,7 @@ public static class World
                 QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                 "Clear the alchemist's garden",
                 "Kill rats in the alchemist's garden ",
+                1,
                 MonsterByID(MONSTER_ID_RAT),
                 3,
                 1);
@@ -83,19 +84,21 @@ public static class World
                 QUEST_ID_CLEAR_FARMERS_FIELD,
                 "Clear the farmer's field",
                 "Kill snakes in the farmer's field",
+                2,
                 MonsterByID(MONSTER_ID_SNAKE),
                 3,
                 2);
 
 
         Quest clearSpidersForest =
-                    new Quest(
-                        QUEST_ID_COLLECT_SPIDER_SILK,
-                        "Collect spider silk",
-                        "Kill spiders in the spider forest",
-                        MonsterByID(MONSTER_ID_GIANT_SPIDER),
-                        3,
-                        3);
+            new Quest(
+                QUEST_ID_COLLECT_SPIDER_SILK,
+                "Collect spider silk",
+                "Kill spiders in the spider forest",
+                3,
+                MonsterByID(MONSTER_ID_GIANT_SPIDER),
+                3,
+                3);
 
 
         Quests.Add(clearAlchemistGarden);

@@ -14,7 +14,7 @@ public class Quest(
     string name,
     string description,
     int npcDialogueID,
-    Monster monster,
+    Monster? monster,
     int killsRequired,
     int questDifficulty)
 {

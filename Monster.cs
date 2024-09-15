@@ -24,7 +24,7 @@ namespace ProjectAlpha
         /// <summary>
         /// XP reward for defeating the monster
         /// </summary>
-        public int ExperienceReward;
+        // public int ExperienceReward;
 
         List<string> killRewards = new List<string>();
 
@@ -37,7 +37,7 @@ namespace ProjectAlpha
         /// <param name="currentHitPoints">Monster's current hit points</param>
         /// <param name="maximumHitPoints">Monster's maximum hit points</param>
         /// <param name="experienceReward">Experience points given to the player upon defeat</param>
-        public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints, int experienceReward)
+        public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints)
         {
             ID = id;
             Name = name;
@@ -45,7 +45,7 @@ namespace ProjectAlpha
             CurrentHitPoints = currentHitPoints;
             MaximumHitPoints = maximumHitPoints;
             IsAlive = currentHitPoints > 0;
-            ExperienceReward = experienceReward; // Initialize XP reward
+            // ExperienceReward = experienceReward; // Initialize XP reward
         }
 
         /// <summary>
@@ -100,10 +100,10 @@ namespace ProjectAlpha
             {
                 CurrentHitPoints = 0;
                 IsAlive = false;
-                Console.WriteLine($"The monster has been defeated! {player.Name} receives {ExperienceReward} XP.");
+                Console.WriteLine($"The monster has been defeated!");
 
                 // Reward the player with XP for defeating the monster
-                player.GainExperience(ExperienceReward);
+                // player.GainExperience(ExperienceReward);
             }
             else
             {

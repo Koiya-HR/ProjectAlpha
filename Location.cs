@@ -1,5 +1,6 @@
 using System.Net;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ProjectAlpha;
 
@@ -38,7 +39,7 @@ public class Location {
         }
     }
 
-    public List<Location>? Map() {
+    public List<Location>? Map(Player player) {
         Dictionary<int, List<Location>> validDirections = new Dictionary<int, List<Location>>() {
             { 1, [this.LocationToNorth] },
             { 2, [this.LocationToSouth, this.LocationToEast, this.LocationToNorth, this.LocationToWest] },
@@ -62,9 +63,15 @@ public class Location {
                 Console.WriteLine("\n  |\n  A\n-FXG--\n  H");
                 return validDirections[2];
             case 3:
-                PrintPossibleLocations(validDirections, 3); 
-                Console.WriteLine("\n  |\n  |\n--TXB-\n  |");
-                return validDirections[3];
+                PrintPossibleLocations(validDirections, 3);
+                if (player.finishedQuests.Count < 2) {
+                    Console.WriteLine("\n  |\n  |\n--TX--\n  |");
+                    return validDirections[3];
+                } else {
+                    Console.WriteLine("\n  |\n  |\n--TXB-\n  |");
+                    validDirections[3].Remove(LocationToWest);
+                    return validDirections[3];
+                }
             case 4:
                 PrintPossibleLocations(validDirections, 4);
                 Console.WriteLine("\n  P\n  X\n--T---\n  |");
