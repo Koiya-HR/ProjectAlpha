@@ -3,25 +3,40 @@ namespace ProjectAlpha
     public class Monster
     {
         /// <summary>
-        /// field voor rng
+        /// Field for RNG
         /// </summary>
         Random rnd = new();
 
         /// <summary>
-        /// fields voor monster properties
+        /// Fields for monster properties
         /// </summary>
         public int ID;
         public string Name;
         public int MaximumDamage;
         public int CurrentHitPoints;
         public int MaximumHitPoints;
+
         /// <summary>
-        /// boolean om te checken of het monster nog leeft
+        /// Boolean to check if the monster is still alive
         /// </summary>
         public bool IsAlive;
+
+        /// <summary>
+        /// XP reward for defeating the monster
+        /// </summary>
+        // public int ExperienceReward;
+
         List<string> killRewards = new List<string>();
 
-        // constructor
+        /// <summary>
+        /// Constructor for the Monster class
+        /// </summary>
+        /// <param name="id">Monster ID</param>
+        /// <param name="name">Monster name</param>
+        /// <param name="maximumDamage">Maximum damage the monster can deal</param>
+        /// <param name="currentHitPoints">Monster's current hit points</param>
+        /// <param name="maximumHitPoints">Monster's maximum hit points</param>
+        /// <param name="experienceReward">Experience points given to the player upon defeat</param>
         public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints)
         {
             ID = id;
@@ -30,21 +45,23 @@ namespace ProjectAlpha
             CurrentHitPoints = currentHitPoints;
             MaximumHitPoints = maximumHitPoints;
             IsAlive = currentHitPoints > 0;
+            // ExperienceReward = experienceReward; // Initialize XP reward
         }
 
         /// <summary>
-        /// monster attack method
+        /// Method for the monster to attack the player
         /// </summary>
-        /// <param name="player"></param>
         public void MonsterAttack(Player player)
         {
             if (!IsAlive)
             {
                 Console.WriteLine("The monster is dead and cannot attack.");
+                return;
             }
 
             int damage = rnd.Next(0, MaximumDamage + 1);
             player.CurrentHitPoints -= damage;
+
             if (damage == 0)
             {
                 Console.WriteLine("The monster attacked but missed.");
@@ -64,21 +81,12 @@ namespace ProjectAlpha
             }
         }
 
-        public void MonsterHealth()
-        {
-            Console.WriteLine($"The monster has {CurrentHitPoints} hit points remaining.");
-            if (CurrentHitPoints <= 0)
-            {
-                IsAlive = false;
-                Console.WriteLine("The monster has been defeated.");
-            }
-        }
-
         /// <summary>
-        /// Method om monster te kunnen attacken, deze versie is tijdelijk want er is nog geen player class
+        /// Method for dealing damage to the monster
         /// </summary>
-        /// <param name="damage">Hoeveel dmg</param>
-        public void TakeDamage(int damage)
+        /// <param name="damage">Amount of damage taken by the monster</param>
+        /// <param name="player">The player who dealt the damage</param>
+        public void TakeDamage(int damage, Player player)
         {
             if (!IsAlive)
             {
@@ -92,11 +100,27 @@ namespace ProjectAlpha
             {
                 CurrentHitPoints = 0;
                 IsAlive = false;
-                Console.WriteLine("The monster has been defeated!.");
+                Console.WriteLine($"The monster has been defeated!");
+
+                // Reward the player with XP for defeating the monster
+                // player.GainExperience(ExperienceReward);
             }
             else
             {
                 Console.WriteLine($"The monster took {damage} damage and now has {CurrentHitPoints} hit points remaining.");
+            }
+        }
+
+        /// <summary>
+        /// Method to display the monster's remaining health
+        /// </summary>
+        public void MonsterHealth()
+        {
+            Console.WriteLine($"The monster has {CurrentHitPoints} hit points remaining.");
+            if (CurrentHitPoints <= 0)
+            {
+                IsAlive = false;
+                Console.WriteLine("The monster has been defeated.");
             }
         }
     }
