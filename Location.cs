@@ -1,7 +1,3 @@
-using System.Net;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-
 namespace ProjectAlpha;
 
 /*
@@ -12,7 +8,8 @@ Sprint items:
  If the player inputs a direction he cannot go to an error message is displayed
 */
 
-public class Location {
+public class Location
+{
     public int ID;
     public string Name;
     public string Description;
@@ -23,7 +20,8 @@ public class Location {
     public Location? LocationToSouth;
     public Location? LocationToWest;
 
-    public Location(int id, string name, string description, Quest? questavailablehere, Monster? monsterlivinghere) {
+    public Location(int id, string name, string description, Quest? questavailablehere, Monster? monsterlivinghere)
+    {
         this.ID = id;
         this.Name = name;
         this.Description = description;
@@ -32,14 +30,17 @@ public class Location {
     }
 
 
-    public void PrintPossibleLocations(Dictionary<int, List<Location>> validDirections, int key) {
+    public void PrintPossibleLocations(Dictionary<int, List<Location>> validDirections, int key)
+    {
         Console.WriteLine($"From here you can go to:\n");
-        for (int i = 0; i < validDirections[key].Count; i++) {
+        for (int i = 0; i < validDirections[key].Count; i++)
+        {
             Console.WriteLine(validDirections[key][i].Name);
         }
     }
 
-    public List<Location>? Map(Player player) {
+    public List<Location>? Map(Player player)
+    {
         Dictionary<int, List<Location>> validDirections = new Dictionary<int, List<Location>>() {
             { 1, [this.LocationToNorth] },
             { 2, [this.LocationToSouth, this.LocationToEast, this.LocationToNorth, this.LocationToWest] },
@@ -53,7 +54,8 @@ public class Location {
         };
 
         Console.WriteLine($"You are currently at: {this.Name} (X)");
-        switch (this.ID) {
+        switch (this.ID)
+        {
             case 1:
                 PrintPossibleLocations(validDirections, 1);
                 Console.WriteLine("\n  |\n  |\n--T---\n  X");
@@ -64,10 +66,13 @@ public class Location {
                 return validDirections[2];
             case 3:
                 PrintPossibleLocations(validDirections, 3);
-                if (player.finishedQuests.Count < 2) {
+                if (player.FinishedQuest() < 2)
+                {
                     Console.WriteLine("\n  |\n  |\n--TX--\n  |");
                     return validDirections[3];
-                } else {
+                }
+                else
+                {
                     Console.WriteLine("\n  |\n  |\n--TXB-\n  |");
                     validDirections[3].Remove(LocationToWest);
                     return validDirections[3];
