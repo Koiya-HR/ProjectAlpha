@@ -61,8 +61,8 @@ public class Player {
         bool continueLoop = true;
 
         while (continueLoop) {
-            Console.WriteLine($"Where would you like to go {this.Name}?");
-            locationToGo =  Console.ReadLine().ToUpper();
+            Console.WriteLine($"Where would you like to go, {this.Name}?");
+            locationToGo = Console.ReadLine().ToUpper();
             if (DirectionPossible(IDToLetter, PossibleDirections, locationToGo)) {
                 Console.WriteLine($"You travelled to {CurrentLocation.Name}, {this.Name}");
                 continueLoop = false;

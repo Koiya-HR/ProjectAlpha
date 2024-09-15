@@ -51,7 +51,8 @@ public class SuperAdventure
                     Console.WriteLine("You're already at full HP.");
                 }
                 break;
-                
+            default:
+                break;
         }
     }
 }
