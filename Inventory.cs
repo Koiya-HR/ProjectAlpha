@@ -5,9 +5,9 @@ public class Inventory
 	public int Storage;
 	public object? Current;
 
-	List<Skill> Skills = new();
-	Dictionary<Quest, bool> Quests = new();
-	Dictionary<object, int> Items = new();
+	public List<Skill> Skills = new();
+	public Dictionary<Quest, bool> Quests = new();
+	public Dictionary<object, int> Items = new();
 
 	public Inventory(int storage) => Storage = storage;
 	public Inventory() : this(8) { }

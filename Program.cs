@@ -2,15 +2,15 @@
 
 public class Program {
     public static void Main(string[] args) {
-        Console.WriteLine("What is your name, player?");
-        string? playerName = Console.ReadLine();
-        playerName ??= "Player";
-        Player newPlayer = new(playerName, World.WeaponByID(1), World.LocationByID(1), 10);
+        
+        Console.Write("What is your name?: ");
+        Player player = new(Console.ReadLine() ?? "Player");
 
-        while (newPlayer.finishedQuests.Count < 3) {
-            Console.WriteLine(SuperAdventure.GameMenu(newPlayer));
+        while (player.Inventory.Quests.Values.Contains(false))
+        {
+            Console.WriteLine(SuperAdventure.GameMenu(player));
             int choice = Convert.ToInt32(Console.ReadLine());
-            SuperAdventure.PlayerChoice(newPlayer, choice);
+            SuperAdventure.PlayerChoice(player, choice);
         }
     }
 }

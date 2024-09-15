@@ -1,24 +1,36 @@
+using System.Numerics;
+
 namespace ProjectAlpha;
 
 public class Player {
 
+    public string Name;
     public int MaximumHitPoint;
     public int CurrentHitPoints;
-    public string Name;
 
     public Weapon? CurrentWeapon;
     public Location CurrentLocation;
-    public Quest? CurrentQuest;
+    public Inventory Inventory = new Inventory();
 
-    public List<Quest> finishedQuests;
+    // adapter
+    public Func<int> FinishedQuest;
 
-    public Player(string name, Weapon weapon, Location location, int hits) {
+    public Player(string name): this(name, World.WeaponByID(1), World.LocationByID(1), 10) { }
+    public Player(string name, Weapon? currentWeapon, Location? currentLocation, int currentHitPoints) {
         
+        // set base properties
         this.Name = name;
-        this.CurrentWeapon = weapon;
-        this.CurrentLocation = location;
-        this.CurrentHitPoints = hits;
-        this.finishedQuests = new List<Quest>();
+        this.CurrentWeapon = currentWeapon;
+        this.CurrentLocation = currentLocation;
+        this.CurrentHitPoints = currentHitPoints;
+
+        // initialize quests
+        foreach (Quest quest in World.Quests)
+            this.Inventory.Add(quest);
+
+        // implement redirect (adapter)
+        this.FinishedQuest = () => this.Inventory.Quests.Values.Count(completed => completed == false);
+
     }
 
     public bool DirectionPossible(Dictionary<string, int> IDtoLetter, List<Location> PossibleDirections, string locationToGo) {
@@ -59,9 +71,5 @@ public class Player {
             }
         }
     }
-    public Player(string name, Weapon currentWeapon, Location currentLocation, int currentHitPoints)
-        : this(name, currentWeapon, currentLocation, currentHitPoints, new Inventory()) { }
-
- 
 
 }
