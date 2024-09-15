@@ -71,11 +71,9 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                 "Clear the alchemist's garden",
-                "Kill rats in the alchemist's garden ",
-                MonsterByID(MONSTER_ID_RAT),
-                3,
+                "Kill rats in the alchemist's garden",
+                "My crops are being devoured by three giant rats, big as dogs, sneaking in at night. If you can get rid of them, I’d be mighty grateful—but beware, they’re clever creatures!",
                 1);
-
 
 
         Quest clearFarmersField =
@@ -83,8 +81,7 @@ public static class World
                 QUEST_ID_CLEAR_FARMERS_FIELD,
                 "Clear the farmer's field",
                 "Kill snakes in the farmer's field",
-                MonsterByID(MONSTER_ID_SNAKE),
-                3,
+                "Traveler, you're just in time! Three venomous snakes have been devouring the herbs I need for my alchemy. If you can dispatch them, I’ll reward you—but beware, they’re more dangerous than they appear!",
                 2);
 
 
@@ -93,8 +90,7 @@ public static class World
                         QUEST_ID_COLLECT_SPIDER_SILK,
                         "Collect spider silk",
                         "Kill spiders in the spider forest",
-                        MonsterByID(MONSTER_ID_GIANT_SPIDER),
-                        3,
+                        "So, you've finally come, little insect. You think you can challenge me, the Spider King? Prove yourself by defeating three of my finest brood, or fail and be trapped in my web forever.",
                         3);
 
 
