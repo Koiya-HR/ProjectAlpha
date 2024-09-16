@@ -16,12 +16,6 @@ namespace ProjectAlpha
             Description = description;
         }
 
-        // Method van het wapen
-        public void DescribeWeapon(string Name, int Damage)
-        {
-            Console.WriteLine($"Weapon: {Name}, Damage: {Damage}");
-        }
-
         // Methode om de naam en de damage van het wapen te definieren
         public void Attack(string Name, int Damage)
         {
