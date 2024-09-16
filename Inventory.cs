@@ -85,35 +85,25 @@ public class Inventory
 		return list;
 	}
 
-	public void Represent() => Represent(typeof(Nullable));
-	public void Represent(Type type)
+	public void Represent()
 	{
-		if (type == typeof(Skill))
+		foreach (var item in Items)
 		{
-			// organize (sort) safely
-			SortedList<int, Skill> sorted = new();
-			foreach (var s in Skills) sorted.Add(s.RequiredXP, s);
 
-			// construct skill-tree
-			Console.Clear();
-			foreach (Skill skill in sorted.Values)
-				Console.WriteLine(skill.ToString());
-			
-		}
-		else if (type == typeof(Nullable))
-		{
-			foreach (var item in Items.Select((value, idx) => new {idx, value}))
-			{
-				// everything
+			// L'items
+			if (item.Key.GetType() == typeof(Item))
+			{ 
+				Item current = (Item) item.Key;
+                Console.WriteLine($"{item.Value} {current.ToString()}");
             }
-		}
-		else
-		{
-			foreach (var item in Items)
-				if (item.GetType() == type)
-				{
-					// specific
-				}
-		}
+
+            // La weapons
+            if (item.Key.GetType() == typeof(Weapon))
+            {
+                Weapon current = (Weapon)item.Key;
+				Console.Write($"{item.Value} ");
+				current.DescribeWeapon();
+            }
+        }
 	}
 }

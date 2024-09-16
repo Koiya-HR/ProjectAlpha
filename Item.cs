@@ -11,4 +11,6 @@ public class Item
         Description = description;
     }
 
+    public override string ToString() => $"{Name} - {Description}";
+
 }
