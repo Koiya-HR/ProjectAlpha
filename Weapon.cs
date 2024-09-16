@@ -6,12 +6,14 @@ namespace ProjectAlpha
         public int ID { get; set; }
         public string Name { get; set; }
         public int Damage { get; set; }
+        public string Description {get; set;}
 
-        public Weapon(int id, string name, int damage)
+        public Weapon(int id, string name, int damage, string description)
         {
             ID = id;
             Name = name;
             Damage = damage;
+            Description = description;
         }
 
         // Method van het wapen
