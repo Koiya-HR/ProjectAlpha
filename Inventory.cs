@@ -101,8 +101,7 @@ public class Inventory
             if (item.Key.GetType() == typeof(Weapon))
             {
                 Weapon current = (Weapon)item.Key;
-				Console.Write($"{item.Value} ");
-				current.DescribeWeapon();
+				Console.Write($"{item.Value} {item.Key.Description}");
             }
         }
 	}
