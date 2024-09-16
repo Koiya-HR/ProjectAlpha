@@ -9,7 +9,14 @@ public class Program {
         while (player.Inventory.Quests.Values.Contains(false))
         {
             Console.WriteLine(SuperAdventure.GameMenu(player));
-            int choice = Convert.ToInt32(Console.ReadLine());
+            string? choice = Console.ReadLine();
+
+            while (choice == "") {
+                Console.WriteLine("Please pick one of the numerical values as given below:");
+                Console.WriteLine(SuperAdventure.GameMenu(player));
+                choice = Console.ReadLine();
+            }
+
             SuperAdventure.PlayerChoice(player, choice);
         }
     }

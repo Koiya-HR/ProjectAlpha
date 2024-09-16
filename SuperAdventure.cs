@@ -1,10 +1,7 @@
-using System.Security.Principal;
-
 namespace ProjectAlpha;
 
 public class SuperAdventure
 {
-
     public static string GameMenu(Player player)
     {
         switch (player.CurrentLocation.ID)
@@ -30,18 +27,18 @@ public class SuperAdventure
         }
     }
 
-    public static void PlayerChoice(Player player, int choice)
+    public static void PlayerChoice(Player player, string? choice)
     {
         switch (choice)
         {
-            case 1:
+            case "1":
                 player.Move();
                 break;
-            case 2:
+            case "2":
                 Console.WriteLine($"You are currently at {player.CurrentLocation.Name}.");
                 Console.WriteLine(player.CurrentLocation.Description);
                 break;
-            case 3:
+            case "3":
                 if (player.CurrentHitPoints < player.MaximumHitPoint)
                 {
                     player.CurrentHitPoints = player.MaximumHitPoint;

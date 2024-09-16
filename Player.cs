@@ -16,7 +16,7 @@ public class Player {
     public Func<int> FinishedQuest;
 
     public Player(string name): this(name, World.WeaponByID(1), World.LocationByID(1), 10) { }
-    public Player(string name, Weapon? currentWeapon, Location? currentLocation, int currentHitPoints) {
+    public Player(string name, Weapon? currentWeapon, Location currentLocation, int currentHitPoints) {
         
         // set base properties
         this.Name = name;
@@ -34,12 +34,14 @@ public class Player {
     }
 
     public bool DirectionPossible(Dictionary<string, int> IDtoLetter, List<Location> PossibleDirections, string locationToGo) {
-    foreach (Location location in PossibleDirections) {
-        if (location.ID == IDtoLetter[locationToGo]) {
-            this.CurrentLocation = location;
-            return true;
+        foreach (Location location in PossibleDirections) {
+            if (IDtoLetter.ContainsKey(locationToGo)) {
+                if (location.ID == IDtoLetter[locationToGo]) {
+                    this.CurrentLocation = location;
+                    return true;
+                }    
+            }
         }
-    }
         return false;
     }
 
@@ -57,17 +59,22 @@ public class Player {
         };
 
         List<Location> PossibleDirections = CurrentLocation.Map(this);
-        string locationToGo;
+        string? locationToGo;
         bool continueLoop = true;
 
         while (continueLoop) {
             Console.WriteLine($"Where would you like to go, {this.Name}?");
-            locationToGo = Console.ReadLine().ToUpper();
+            locationToGo = Console.ReadLine()?.ToUpper();
+            while (locationToGo == null) {
+                Console.WriteLine($"Where would you like to go, {this.Name}?");
+                locationToGo = Console.ReadLine()?.ToUpper();
+            }
             if (DirectionPossible(IDToLetter, PossibleDirections, locationToGo)) {
                 Console.WriteLine($"You travelled to {CurrentLocation.Name}, {this.Name}");
                 continueLoop = false;
             } else {
-                Console.WriteLine($"You can't go to this location, {this.Name}\n");
+                Console.WriteLine("This location is not valid. Please enter one of the Letters (excluding X) as shown on the map.");
+                CurrentLocation.Map(this);
             }
         }
     }
