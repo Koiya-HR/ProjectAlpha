@@ -14,18 +14,15 @@ public class Program {
         while (player.Inventory.Quests.Values.Contains(false))
         {
             Console.WriteLine(SuperAdventure.GameMenu(player));
-            
-            // redundant input-validation
             string? choice = Console.ReadLine();
-            int ichoice;
 
-            if (choice == "")
-                continue;
-            else
-                ichoice = Convert.ToInt32(choice);
-            
-            SuperAdventure.PlayerChoice(player, ichoice);
+            while (choice == "") {
+                Console.WriteLine("Please pick one of the numerical values as given below:");
+                Console.WriteLine(SuperAdventure.GameMenu(player));
+                choice = Console.ReadLine();
+            }
 
+            SuperAdventure.PlayerChoice(player, choice);
         }
     }
 }
