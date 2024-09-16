@@ -65,16 +65,17 @@ public class Location
                 Console.WriteLine("\n  |\n  A\n-FXG--\n  H");
                 return validDirections[2];
             case 3:
-                PrintPossibleLocations(validDirections, 3);
                 if (player.FinishedQuest() == 2)
                 {
+                    PrintPossibleLocations(validDirections, 3);
                     Console.WriteLine("\n  |\n  |\n--TXB-\n  |");
                     return validDirections[3];
                 }
                 else
                 {
-                    Console.WriteLine("\n  |\n  |\n--TX--\n  |");
                     validDirections[3].Remove(LocationToEast);
+                    PrintPossibleLocations(validDirections, 3);
+                    Console.WriteLine("\n  |\n  |\n--TX--\n  |");
                     return validDirections[3];
                 }
             case 4:
