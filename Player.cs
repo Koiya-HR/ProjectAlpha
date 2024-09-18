@@ -9,23 +9,34 @@ public class Player {
     public int CurrentHitPoints;
     public int Damage;
     public Weapon? CurrentWeapon;
-    public Location CurrentLocation;
+    public Location? CurrentLocation;
     public Inventory Inventory = new Inventory();
     private static Random rand = new Random();
 
     // adapter
+    public int KilledMonsters;
     public Func<int> FinishedQuest;
 
-    public Player(string name): this(name, World.WeaponByID(1), World.LocationByID(1), 10) { }
-    public Player(string name, Weapon? currentWeapon, Location currentLocation, int currentHitPoints) {
+    public Player(string name): this(name, World.WeaponByID(1), World.LocationByID(1), 30) { }
+    public Player(string name, Weapon? currentWeapon, Location? currentLocation, int currentHitPoints) {
         
         // set base properties
+<<<<<<< HEAD
         Name = name;
         CurrentWeapon = currentWeapon;
         CurrentLocation = currentLocation;
         CurrentHitPoints = currentHitPoints;
         Damage = 1;
         MaximumHitPoint = 10;
+=======
+        this.Name = name;
+        
+        this.CurrentWeapon = currentWeapon;
+        this.CurrentLocation = currentLocation;
+        
+        this.CurrentHitPoints = currentHitPoints;
+        this.MaximumHitPoint = currentHitPoints;
+>>>>>>> d4a8bbbdf6b79d2009696caed5a366f0ecb2eae4
 
         // initialize quests
         foreach (Quest quest in World.Quests)
