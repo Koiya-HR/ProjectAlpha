@@ -20,9 +20,7 @@ namespace ProjectAlpha
         /// Boolean to check if the monster is still alive
         /// </summary>
         public bool IsAlive;
-
-        List<string> killRewards = new List<string>();
-
+        
         /// <summary>
         /// Constructor for the Monster class
         /// </summary>
@@ -141,4 +139,5 @@ namespace ProjectAlpha
                 Console.WriteLine("The monster is still alive and cannot drop any items.");
             }
         }
+    }
 }
