@@ -113,5 +113,32 @@ namespace ProjectAlpha
                 Console.WriteLine("The monster has been defeated.");
             }
         }
-    }
+
+        /// <summary>
+        /// Method to add a reward to the player's inventory upon defeating the monster
+        /// </summary>
+        /// <param name="player">The player who defeated the monster</param>
+        public void AddReward(Player player)
+        {
+            if (!IsAlive)
+            {
+                List<string> giveReward = new List<string> { "Health Potion" };
+
+                // Reward chance 50/50
+                if (rnd.Next(0, 2) == 1)
+                {
+                    string reward = giveReward[0];
+                    player.Inventory.Add(reward);
+                    Console.WriteLine($"You have received a {reward} for defeating the monster!");
+                }
+                else
+                {
+                    Console.WriteLine("The monster did not drop any items.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("The monster is still alive and cannot drop any items.");
+            }
+        }
 }
