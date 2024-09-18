@@ -22,11 +22,11 @@ public class Location
 
     public Location(int id, string name, string description, Quest? questavailablehere, Monster? monsterlivinghere)
     {
-        this.ID = id;
-        this.Name = name;
-        this.Description = description;
-        this.QuestAvailableHere = questavailablehere;
-        this.MonsterLivingHere = monsterlivinghere;
+        ID = id;
+        Name = name;
+        Description = description;
+        QuestAvailableHere = questavailablehere;
+        MonsterLivingHere = monsterlivinghere;
     }
 
 
@@ -42,19 +42,19 @@ public class Location
     public List<Location>? Map(Player player)
     {
         Dictionary<int, List<Location>> validDirections = new Dictionary<int, List<Location>>() {
-            { 1, [this.LocationToNorth] },
-            { 2, [this.LocationToSouth, this.LocationToEast, this.LocationToNorth, this.LocationToWest] },
-            { 3, [this.LocationToEast, this.LocationToWest] },
-            { 4, [this.LocationToSouth, this.LocationToNorth] },
-            { 5, [this.LocationToSouth] },
-            { 6, [this.LocationToEast, this.LocationToWest] },
-            { 7, [this.LocationToEast] },
-            { 8, [this.LocationToWest, this.LocationToEast] },
-            { 9, [this.LocationToWest] }
+            { 1, [LocationToNorth] },
+            { 2, [LocationToSouth, LocationToEast, LocationToNorth, LocationToWest] },
+            { 3, [LocationToEast, LocationToWest] },
+            { 4, [LocationToSouth, LocationToNorth] },
+            { 5, [LocationToSouth] },
+            { 6, [LocationToEast, LocationToWest] },
+            { 7, [LocationToEast] },
+            { 8, [LocationToWest, LocationToEast] },
+            { 9, [LocationToWest] }
         };
 
-        Console.WriteLine($"You are currently at: {this.Name} (X)");
-        switch (this.ID)
+        Console.WriteLine($"You are currently at: {Name} (X)");
+        switch (ID)
         {
             case 1:
                 PrintPossibleLocations(validDirections, 1);

@@ -30,12 +30,12 @@ public static class SuperAdventure
                     return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
                 }
             case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
-            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
             case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
-            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
-            case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n\n";
-            case 9: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n\n";
-            default: return "There was an error, please try again.(4) Check Inventory.\n\n";
+            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
+            case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n";
+            case 9: return $"(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
+            default: return "There was an error, please try again.(4) Check Inventory.";
         }
     }
 
@@ -68,6 +68,9 @@ public static class SuperAdventure
                 Console.Clear();
                 player.Inventory.Represent();
                 PressToContinue();
+                break;
+            case "5":
+                player.Attack(player.CurrentLocation.MonsterLivingHere);
                 break;
             default:
                 break;
