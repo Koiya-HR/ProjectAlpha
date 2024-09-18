@@ -21,12 +21,13 @@ public class Inventory
 		return true;
 	}
 
-	public bool Add(object item)
+	public bool Add(object? item)
 	{
 		// add skills separately
 		if (item is Skill skill)
 		{
 			Skills.Add(skill);
+			Skill.Apply(skill);
 			return true;
 		}
 
@@ -35,6 +36,9 @@ public class Inventory
 			Quests.Add(quest, false);
 			return true;
 		}
+
+		if (item == null)
+			return false;
 
 		// disallow bloat
 		if (Items.Count + 1 > Storage) 

@@ -5,6 +5,7 @@ public static class World
 
     public static readonly List<Weapon> Weapons = new List<Weapon>();
     public static readonly List<Monster> Monsters = new List<Monster>();
+    public static readonly List<Skill> Skills = new List<Skill>();
     public static readonly List<Quest> Quests = new List<Quest>();
     public static readonly List<Location> Locations = new List<Location>();
     public static readonly Random RandomGenerator = new Random();
@@ -34,12 +35,17 @@ public static class World
     public const int LOCATION_ID_BRIDGE = 8;
     public const int LOCATION_ID_SPIDER_FIELD = 9;
 
+    public const int SKILL_ID_HEALTH_1 = 1;
+    public const int SKILL_ID_HEALTH_2 = 2;
+    public const int SKILL_ID_HEALTH_3 = 3;
+
     static World()
     {
         PopulateWeapons();
         PopulateMonsters();
         PopulateQuests();
         PopulateLocations();
+        PopulateSkills();
     }
 
 
@@ -171,6 +177,17 @@ public static class World
         Locations.Add(spiderField);
     }
 
+    public static void PopulateSkills()
+    {
+        Skill healthOne = new(1, "Health (1)", "Will increase your health by 5 points", 50, 5);
+        Skill healthTwo = new(2, "Health (2)", "Will increase your health by 10 points", 150, 10);
+        Skill healthThree = new(3, "Health (3)", "Will increase your health by 20 points", 300, 20);
+
+        Skills.Add(healthOne);
+        Skills.Add(healthTwo);
+        Skills.Add(healthThree);
+    }
+
     public static Location? LocationByID(int id)
     {
         foreach (Location location in Locations)
@@ -219,6 +236,19 @@ public static class World
             if (quest.ID == id)
             {
                 return quest;
+            }
+        }
+
+        return null;
+    }
+
+    public static Skill? SkillByID(int id)
+    {
+        foreach (Skill skill in Skills)
+        {
+            if (skill.ID == id)
+            {
+                return skill;
             }
         }
 
