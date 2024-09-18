@@ -35,8 +35,8 @@ public class SuperAdventure
                 player.Move();
                 break;
             case "2":
-                Console.WriteLine($"You are currently at {player.CurrentLocation.Name}.");
-                Console.WriteLine(player.CurrentLocation.Description);
+                Console.WriteLine($"You are currently at {player.CurrentLocation.Name}\n.");
+                Console.WriteLine($"{player.CurrentLocation.Description}\n");
                 break;
             case "3":
                 if (player.CurrentHitPoints < player.MaximumHitPoint)
@@ -45,11 +45,14 @@ public class SuperAdventure
                 }
                 else
                 {
-                    Console.WriteLine("You're already at full HP.");
+                    Console.WriteLine("You're already at full HP.\n");
                 }
                 break;
             case "4":
                 player.Inventory.Represent();
+                break;
+            case "5":
+                Console.WriteLine("This feature is not yet implemented.\n");
                 break;
             default:
                 break;

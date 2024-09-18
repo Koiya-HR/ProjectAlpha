@@ -27,6 +27,7 @@ public class Player {
         // initialize quests
         foreach (Quest quest in World.Quests)
             this.Inventory.Add(quest);
+            this.Inventory.Add(World.WeaponByID(1));
 
         // implement redirect (adapter)
         this.FinishedQuest = () => this.Inventory.Quests.Values.Count(completed => completed == false);
