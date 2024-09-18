@@ -7,7 +7,6 @@ public class Player {
     public string Name;
     public int MaximumHitPoint;
     public int CurrentHitPoints;
-
     public Weapon? CurrentWeapon;
     public Location CurrentLocation;
     public Inventory Inventory = new Inventory();
@@ -33,51 +32,4 @@ public class Player {
         this.FinishedQuest = () => this.Inventory.Quests.Values.Count(completed => completed == false);
 
     }
-
-    public bool DirectionPossible(Dictionary<string, int> IDtoLetter, List<Location> PossibleDirections, string locationToGo) {
-        foreach (Location location in PossibleDirections) {
-            if (IDtoLetter.ContainsKey(locationToGo)) {
-                if (location.ID == IDtoLetter[locationToGo]) {
-                    this.CurrentLocation = location;
-                    return true;
-                }    
-            }
-        }
-        return false;
-    }
-
-    public void Move() {
-        Dictionary<string, int> IDToLetter = new Dictionary<string, int>() {
-            {"H", 1},
-            {"T", 2},
-            {"G", 3},
-            {"A", 4},
-            {"P", 5},
-            {"F", 6},
-            {"V", 7},
-            {"B", 8},
-            {"S", 9}
-        };
-
-        List<Location> PossibleDirections = CurrentLocation.Map(this);
-        string? locationToGo;
-        bool continueLoop = true;
-
-        while (continueLoop) {
-            Console.WriteLine($"Where would you like to go, {this.Name}?");
-            locationToGo = Console.ReadLine()?.ToUpper();
-            while (locationToGo == null) {
-                Console.WriteLine($"Where would you like to go, {this.Name}?");
-                locationToGo = Console.ReadLine()?.ToUpper();
-            }
-            if (DirectionPossible(IDToLetter, PossibleDirections, locationToGo)) {
-                Console.WriteLine($"You travelled to {CurrentLocation.Name}, {this.Name}");
-                continueLoop = false;
-            } else {
-                Console.WriteLine("This location is not valid. Please enter one of the Letters (excluding X) as shown on the map.");
-                CurrentLocation.Map(this);
-            }
-        }
-    }
-
 }

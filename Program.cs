@@ -2,27 +2,19 @@
 
 public class Program {
     public static void Main(string[] args) {
-        
-        Console.Write("What is your name?: ");
-        Player player = new(Console.ReadLine());
-
-        // don't allow nameless players
-        if (player.Name == "")
-            player.Name = "Player";
-
-
-        while (player.Inventory.Quests.Values.Contains(false))
+        SuperAdventure.SetPlayer();
+        while (SuperAdventure.player.Inventory.Quests.Values.Contains(false))
         {
-            Console.WriteLine(SuperAdventure.GameMenu(player));
+            Console.WriteLine(SuperAdventure.GameMenu());
             string? choice = Console.ReadLine();
 
             while (choice == "") {
                 Console.WriteLine("Please pick one of the numerical values as given below:");
-                Console.WriteLine(SuperAdventure.GameMenu(player));
+                Console.WriteLine(SuperAdventure.GameMenu());
                 choice = Console.ReadLine();
             }
 
-            SuperAdventure.PlayerChoice(player, choice);
+            SuperAdventure.PlayerChoice(SuperAdventure.player, choice);
         }
     }
 }

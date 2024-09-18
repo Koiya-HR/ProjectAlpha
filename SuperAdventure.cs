@@ -1,9 +1,21 @@
 namespace ProjectAlpha;
 
-public class SuperAdventure
+public static class SuperAdventure
 {
-    public static string GameMenu(Player player)
-    {
+    public static Player? player = null;
+
+    public static void SetPlayer() {
+        Console.Write("What is your name?: ");
+        player = new(Console.ReadLine());
+
+        // don't allow nameless players
+        if (player.Name == "")
+            player.Name = "Player";
+    }
+
+    public static string GameMenu()
+    {   
+        Console.Clear();
         switch (player.CurrentLocation.ID)
         {
             case 1: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
@@ -18,9 +30,9 @@ public class SuperAdventure
                     return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
                 }
             case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Talk to the alchemist.\n";
-            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}s.\n";
+            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player?.CurrentLocation?.MonsterLivingHere?.Name}s.\n";
             case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Talk to the farmer.\n";
-            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}s\n";
+            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player?.CurrentLocation?.MonsterLivingHere?.Name}s\n";
             case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n\n";
             case 9: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n\n";
             default: return "There was an error, please try again.(4) Check Inventory.\n\n";
@@ -32,11 +44,12 @@ public class SuperAdventure
         switch (choice)
         {
             case "1":
-                player.Move();
+                NextTurn();
                 break;
             case "2":
                 Console.WriteLine($"You are currently at {player.CurrentLocation.Name}\n.");
                 Console.WriteLine($"{player.CurrentLocation.Description}\n");
+                PressToContinue();
                 break;
             case "3":
                 if (player.CurrentHitPoints < player.MaximumHitPoint)
@@ -47,15 +60,69 @@ public class SuperAdventure
                 {
                     Console.WriteLine("You're already at full HP.\n");
                 }
+                PressToContinue();
                 break;
             case "4":
                 player.Inventory.Represent();
+                PressToContinue();
                 break;
             case "5":
                 Console.WriteLine("This feature is not yet implemented.\n");
+                PressToContinue();
                 break;
             default:
                 break;
         }
+    }
+
+    public static bool DirectionPossible(Dictionary<string, int> IDtoLetter, List<Location> PossibleDirections, string locationToGo) {
+        foreach (Location location in PossibleDirections) {
+            if (IDtoLetter.ContainsKey(locationToGo)) {
+                if (location.ID == IDtoLetter[locationToGo]) {
+                    player.CurrentLocation = location;
+                    return true;
+                }    
+            }
+        }
+        return false;
+    }
+    public static void NextTurn() {
+        Dictionary<string, int> IDToLetter = new Dictionary<string, int>() {
+            {"H", 1},
+            {"T", 2},
+            {"G", 3},
+            {"A", 4},
+            {"P", 5},
+            {"F", 6},
+            {"V", 7},
+            {"B", 8},
+            {"S", 9}
+        };
+
+        List<Location> PossibleDirections = player.CurrentLocation.Map(player);
+        string? locationToGo;
+        bool continueLoop = true;
+        while (continueLoop) {
+            Console.WriteLine($"Where would you like to go, {player.Name}?");
+            locationToGo = Console.ReadLine()?.ToUpper();
+            while (locationToGo == null) {
+                Console.WriteLine($"Where would you like to go, {player.Name}?");
+                locationToGo = Console.ReadLine()?.ToUpper();
+            }
+            if (DirectionPossible(IDToLetter, PossibleDirections, locationToGo)) {
+                Console.WriteLine($"You travelled to {player.CurrentLocation.Name}, {player.Name}\n");
+                Console.WriteLine($"{player.CurrentLocation.Description}\n");
+                continueLoop = false;
+            } else {
+                Console.WriteLine("This location is not valid. Please enter one of the Letters (excluding X) as shown on the map.");
+                player.CurrentLocation.Map(player);
+            }
+        }
+        PressToContinue();
+    }
+
+    public static void PressToContinue() {
+        Console.WriteLine("Press enter to continue.");
+        string? input = Console.ReadLine();
     }
 }
