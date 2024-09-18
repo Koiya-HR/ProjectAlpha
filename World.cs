@@ -5,7 +5,6 @@ public static class World
     public static readonly List<Skill> Skills = new List<Skill>();
     public static readonly List<Weapon> Weapons = new List<Weapon>();
     public static readonly List<Monster> Monsters = new List<Monster>();
-    public static readonly List<Skill> Skills = new List<Skill>();
     public static readonly List<Quest> Quests = new List<Quest>();
     public static readonly List<Location> Locations = new List<Location>();
     public static readonly Random RandomGenerator = new Random();
@@ -47,13 +46,6 @@ public static class World
         PopulateLocations();
         PopulateSkills();
     }
-
-    public static void PopulateSkills()
-    {
-        Skills.Add(new Skill("Increase HP", "Increases the players Max HP", 75));
-        Skills.Add(new Skill("Increase Damage", "Increases the players Max damage", 100));
-    }
-
     public static void PopulateWeapons()
     {
         Weapons.Add(new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, "Just a rusty sword, nothing special."));

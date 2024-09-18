@@ -37,28 +37,28 @@ public class Quest(
         {
             case 1:
                 text +=
-                @"Ah, you there! Just the sort of help I need.
-                My crops—what little I’ve got—are bein' devoured by a pack of oversized rats.
-                Three of the vermin, big as dogs, keep sneakin’ in at night and gnawin’ through my harvest.
-                If you can rid me of the filthy creatures, I’d be mighty grateful.
-                Be careful, though—they’re more cunning than they look!";
+@"Ah, you there! Just the sort of help I need.
+My crops—what little I’ve got—are bein' devoured by a pack of oversized rats.
+Three of the vermin, big as dogs, keep sneakin’ in at night and gnawin’ through my harvest.
+If you can rid me of the filthy creatures, I’d be mighty grateful.
+Be careful, though—they’re more cunning than they look!";
                 break;
             case 2:
                 text +=
-                @"Ah, traveler, you've come at the right time!
-                A vile nuisance has slithered its way into my work.
-                Three snakes, venomous and persistent, have been devouring the very herbs I need for my most delicate concoctions.
-                Without those plants, my alchemy suffers!
-                If you can dispatch these wretched serpents, I will reward you handsomely...
-                but be warned, they’re more dangerous than they seem.";
+@"Ah, traveler, you've come at the right time!
+A vile nuisance has slithered its way into my work.
+Three snakes, venomous and persistent, have been devouring the very herbs I need for my most delicate concoctions.
+Without those plants, my alchemy suffers!
+If you can dispatch these wretched serpents, I will reward you handsomely...
+but be warned, they’re more dangerous than they seem.";
                 break;
             case 3:
                 text +=
-                @"So, you've finally crawled your way to me, little insect.
-                Impressive... but foolish. You think you can face me, the Spider King, so easily?
-                Hah! Prove your worth first. Three of my finest brood await, lurking in the shadows.
-                Defeat them, if you dare, and perhaps I’ll grant you the honor of a true fight.
-                But know this—failure means you’ll join my web, forever.";
+@"So, you've finally crawled your way to me, little insect.
+Impressive... but foolish. You think you can face me, the Spider King, so easily?
+Hah! Prove your worth first. Three of my finest brood await, lurking in the shadows.
+Defeat them, if you dare, and perhaps I’ll grant you the honor of a true fight.
+But know this—failure means you’ll join my web, forever.";
                 break;
         }
         return text;
