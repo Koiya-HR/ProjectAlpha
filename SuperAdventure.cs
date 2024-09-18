@@ -29,10 +29,10 @@ public static class SuperAdventure
                 {
                     return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
                 }
-            case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Talk to the alchemist.\n";
-            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player?.CurrentLocation?.MonsterLivingHere?.Name}s.\n";
-            case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Talk to the farmer.\n";
-            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player?.CurrentLocation?.MonsterLivingHere?.Name}s\n";
+            case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+            case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
             case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n\n";
             case 9: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n\n";
             default: return "There was an error, please try again.(4) Check Inventory.\n\n";
@@ -47,11 +47,13 @@ public static class SuperAdventure
                 NextTurn();
                 break;
             case "2":
+                Console.Clear();
                 Console.WriteLine($"You are currently at {player.CurrentLocation.Name}\n.");
                 Console.WriteLine($"{player.CurrentLocation.Description}\n");
                 PressToContinue();
                 break;
             case "3":
+                Console.Clear();
                 if (player.CurrentHitPoints < player.MaximumHitPoint)
                 {
                     player.CurrentHitPoints = player.MaximumHitPoint;
@@ -63,11 +65,8 @@ public static class SuperAdventure
                 PressToContinue();
                 break;
             case "4":
+                Console.Clear();
                 player.Inventory.Represent();
-                PressToContinue();
-                break;
-            case "5":
-                Console.WriteLine("This feature is not yet implemented.\n");
                 PressToContinue();
                 break;
             default:
@@ -87,6 +86,7 @@ public static class SuperAdventure
         return false;
     }
     public static void NextTurn() {
+        Console.Clear();
         Dictionary<string, int> IDToLetter = new Dictionary<string, int>() {
             {"H", 1},
             {"T", 2},
@@ -105,9 +105,11 @@ public static class SuperAdventure
         while (continueLoop) {
             Console.WriteLine($"Where would you like to go, {player.Name}?");
             locationToGo = Console.ReadLine()?.ToUpper();
+            Console.Clear();
             while (locationToGo == null) {
                 Console.WriteLine($"Where would you like to go, {player.Name}?");
                 locationToGo = Console.ReadLine()?.ToUpper();
+                Console.Clear();
             }
             if (DirectionPossible(IDToLetter, PossibleDirections, locationToGo)) {
                 Console.WriteLine($"You travelled to {player.CurrentLocation.Name}, {player.Name}\n");
@@ -118,11 +120,27 @@ public static class SuperAdventure
                 player.CurrentLocation.Map(player);
             }
         }
+
+        switch (player.CurrentLocation.ID)
+        {
+            case 4:
+                Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                break;
+            case 6:
+                Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                break;
+            case 8:
+                Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                break;
+            default:
+                break;
+        }
+
         PressToContinue();
     }
 
     public static void PressToContinue() {
-        Console.WriteLine("Press enter to continue.");
+        Console.WriteLine("\n\nPress enter to continue.");
         string? input = Console.ReadLine();
     }
 }

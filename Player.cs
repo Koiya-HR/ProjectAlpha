@@ -34,6 +34,7 @@ public class Player {
 
         // implement redirect (adapter)
         this.FinishedQuest = () => this.Inventory.Quests.Values.Count(completed => completed == false);
-
     }
+
+    
 }
