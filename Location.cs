@@ -80,7 +80,7 @@ public class Location
                 }
             case 4:
                 PrintPossibleLocations(validDirections, 4);
-                Console.WriteLine("\n  P\n  X\n--T---\n  |");
+                Console.WriteLine("\n  P\n  X\n--T---\n  |\n");
                 return validDirections[4];
             case 5:
                 PrintPossibleLocations(validDirections, 5);

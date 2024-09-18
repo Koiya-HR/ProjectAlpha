@@ -2,7 +2,7 @@ namespace ProjectAlpha;
 
 public static class World
 {
-
+    public static readonly List<Skill> Skills = new List<Skill>();
     public static readonly List<Weapon> Weapons = new List<Weapon>();
     public static readonly List<Monster> Monsters = new List<Monster>();
     public static readonly List<Quest> Quests = new List<Quest>();
@@ -40,8 +40,14 @@ public static class World
         PopulateMonsters();
         PopulateQuests();
         PopulateLocations();
+        PopulateSkills();
     }
 
+    public static void PopulateSkills()
+    {
+        Skills.Add(new Skill("Increase HP", "Increases the players Max HP", 75));
+        Skills.Add(new Skill("Increase Damage", "Increases the players Max damage", 100));
+    }
 
     public static void PopulateWeapons()
     {
