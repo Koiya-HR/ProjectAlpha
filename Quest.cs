@@ -13,64 +13,43 @@ public class Quest(
     int id,
     string name,
     string description,
-    int npcDialogueID,
-    Monster? monster,
-    int killsRequired,
-    int questDifficulty)
+    string npcDialogue,
+    int difficulty)
 {
+    public Random rand = new();
     public int ID = id;
     public string Name = name;
     public string Description = description;
-    public int NpcDialogueID = npcDialogueID;
-    public Monster? Monster = monster;
-    public int KillsRequired = killsRequired;
-    public int QuestDifficulty = questDifficulty;
+    public string NpcDialogue = npcDialogue;
+    public int Difficulty = difficulty;
 
     /// <summary>
     /// Stuur de quest naam terug met de character dialogue erin
     /// </summary>
     /// <returns>Quest naam, quest info en character dialogue in string formaat</returns>
-    public string QuestInfo()
-    {
-        string text = $"*{Name}*\nQuest objective: {Description}\n";
-        switch (NpcDialogueID)
-        {
-            case 1:
-                text +=
-@"Ah, you there! Just the sort of help I need.
-My crops—what little I’ve got—are bein' devoured by a pack of oversized rats.
-Three of the vermin, big as dogs, keep sneakin’ in at night and gnawin’ through my harvest.
-If you can rid me of the filthy creatures, I’d be mighty grateful.
-Be careful, though—they’re more cunning than they look!";
-                break;
-            case 2:
-                text +=
-@"Ah, traveler, you've come at the right time!
-A vile nuisance has slithered its way into my work.
-Three snakes, venomous and persistent, have been devouring the very herbs I need for my most delicate concoctions.
-Without those plants, my alchemy suffers!
-If you can dispatch these wretched serpents, I will reward you handsomely...
-but be warned, they’re more dangerous than they seem.";
-                break;
-            case 3:
-                text +=
-@"So, you've finally crawled your way to me, little insect.
-Impressive... but foolish. You think you can face me, the Spider King, so easily?
-Hah! Prove your worth first. Three of my finest brood await, lurking in the shadows.
-Defeat them, if you dare, and perhaps I’ll grant you the honor of a true fight.
-But know this—failure means you’ll join my web, forever.";
-                break;
-        }
-        return text;
-    }
+    public string QuestInfo() => $"*{Name}*\nQuest objective: {Description}\n{NpcDialogue}";
+
     /// <summary>
-    /// Een quest completen en XP rewards bepalen
+    /// Een quest completen en XP rewards bepalen -- Nog een "concept"
     /// </summary>
-    /// <param name="multiplier">De multiplier die wordt gemaakt door de Random class tussen de 1 en 3</param>
-    /// <returns>Aantal XP gekregen</returns>
-    public int QuestComplete(int multiplier)
+    /// <returns>Een list met type "object" met de eerste value de XP die je verdient, en de rest zijn de rewards</returns>
+    public List<object> QuestComplete()
     {
-        int xpGained = multiplier * 100; // TO:DO als leveling systeem klaar is, 100 weghalen en met een betere systeem opkomen
-        return xpGained;
+        List<object> rewards = [];
+
+        int chance = rand.Next(1, 101);
+
+        rewards.Add(difficulty * 100); // Aantal XP verdiend
+        
+        if(Difficulty > 1)
+        {
+            chance += Difficulty * 5;
+        }
+
+        if(chance >= 50) rewards.Add("Health potion");
+        if(chance >= 75) rewards.Add("Sword");
+        if(rewards.Count != 3 && chance >= 90) rewards.Add("MOST EPICEST OF SWORDS!!1");
+
+        return rewards;
     }
 }
