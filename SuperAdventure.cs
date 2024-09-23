@@ -18,24 +18,24 @@ public static class SuperAdventure
         Console.Clear();
         switch (player.CurrentLocation.ID)
         {
-            case 1: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
-            case 2: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+            case 1: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
+            case 2: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
             case 3:
                 if (player.FinishedQuest() < 2)
                 {
-                    return $"You are not yet strong enough to pass onto the bridge {player.Name}\nGo back & finish 2 quests before coming back.\n\n(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+                    return $"You are not yet strong enough to pass onto the bridge {player.Name}\nGo back & finish 2 quests before coming back.\n\n(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
                 }
                 else
                 {
-                    return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
+                    return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
                 }
-            case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
-            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
-            case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n";
-            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
-            case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n";
-            case 9: return $"(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n(5) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
-            default: return "There was an error, please try again.(4) Check Inventory.";
+            case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
+            case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
+            case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
+            case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
+            case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n(5) View skills.\n";
+            case 9: return $"(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
+            default: return "There was an error, please try again.";
         }
     }
 
@@ -75,6 +75,9 @@ public static class SuperAdventure
                 PressToContinue();
                 break;
             case "5":
+                player.Inventory.SkillTree();
+                break;
+            case "6":
                 player.Attack(player.CurrentLocation.MonsterLivingHere);
                 break;
             default:
