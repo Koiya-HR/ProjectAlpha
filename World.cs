@@ -5,7 +5,6 @@ public static class World
     public static readonly List<Skill> Skills = new List<Skill>();
     public static readonly List<Weapon> Weapons = new List<Weapon>();
     public static readonly List<Monster> Monsters = new List<Monster>();
-    public static readonly List<Skill> Skills = new List<Skill>();
     public static readonly List<Quest> Quests = new List<Quest>();
     public static readonly List<Location> Locations = new List<Location>();
     public static readonly Random RandomGenerator = new Random();
@@ -47,13 +46,6 @@ public static class World
         PopulateLocations();
         PopulateSkills();
     }
-
-    public static void PopulateSkills()
-    {
-        Skills.Add(new Skill("Increase HP", "Increases the players Max HP", 75));
-        Skills.Add(new Skill("Increase Damage", "Increases the players Max damage", 100));
-    }
-
     public static void PopulateWeapons()
     {
         Weapons.Add(new Weapon(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, "Just a rusty sword, nothing special."));
@@ -82,12 +74,9 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                 "Clear the alchemist's garden",
-                "Kill rats in the alchemist's garden ",
-                1,
-                MonsterByID(MONSTER_ID_RAT),
-                3,
+                "Kill rats in the alchemist's garden",
+                "My crops are being devoured by three giant rats, big as dogs, sneaking in at night. If you can get rid of them, I’d be mighty grateful—but beware, they’re clever creatures!",
                 1);
-
 
 
         Quest clearFarmersField =
@@ -95,21 +84,17 @@ public static class World
                 QUEST_ID_CLEAR_FARMERS_FIELD,
                 "Clear the farmer's field",
                 "Kill snakes in the farmer's field",
-                2,
-                MonsterByID(MONSTER_ID_SNAKE),
-                3,
+                "Traveler, you're just in time! Three venomous snakes have been devouring the herbs I need for my alchemy. If you can dispatch them, I’ll reward you—but beware, they’re more dangerous than they appear!",
                 2);
 
 
         Quest clearSpidersForest =
-            new Quest(
-                QUEST_ID_COLLECT_SPIDER_SILK,
-                "Collect spider silk",
-                "Kill spiders in the spider forest",
-                3,
-                MonsterByID(MONSTER_ID_GIANT_SPIDER),
-                3,
-                3);
+                    new Quest(
+                        QUEST_ID_COLLECT_SPIDER_SILK,
+                        "Collect spider silk",
+                        "Kill spiders in the spider forest",
+                        "So, you've finally come, little insect. You think you can challenge me, the Spider King? Prove yourself by defeating three of my finest brood, or fail and be trapped in my web forever.",
+                        3);
 
 
         Quests.Add(clearAlchemistGarden);
