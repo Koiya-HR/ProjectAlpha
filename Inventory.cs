@@ -1,3 +1,5 @@
+using System.Collections.Specialized;
+
 namespace ProjectAlpha;
 public class Inventory
 {
@@ -5,7 +7,7 @@ public class Inventory
 	public int Storage;
 	public object? Current;
 
-	public List<Skill> Skills = new();
+	public OrderedDictionary Skills = new();
 	public Dictionary<Quest, bool> Quests = new();
 	public Dictionary<object, int> Items = new();
 
@@ -26,7 +28,7 @@ public class Inventory
 		// add skills separately
 		if (item is Skill skill)
 		{
-			Skills.Add(skill);
+			Skills.Add(skill.RequiredXP, skill);
 			Skill.Apply(skill);
 			return true;
 		}
@@ -89,6 +91,14 @@ public class Inventory
 		return list;
 	}
 
+	public void SkillTree()
+	{
+		foreach (Skill skill in Skills)
+		{
+			Console.WriteLine(skill.ToString());
+		}
+	}
+
 	public void Represent()
 	{
 		foreach (var item in Items)
@@ -107,6 +117,7 @@ public class Inventory
                 Weapon current = (Weapon)item.Key;
 				Console.WriteLine($"{item.Value} {current.Description}");
             }
+
         }
 	}
 }
