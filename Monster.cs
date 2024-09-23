@@ -1,64 +1,143 @@
-namespace ProjectAlpha;
-public class Monster
+namespace ProjectAlpha
 {
-    /// <summary>
-    /// Field for RNG
-    /// </summary>
-    Random rnd = new();
-
-    /// <summary>
-    /// Fields for monster properties
-    /// </summary>
-    public int ID;
-    public string Name;
-    public int MaximumDamage;
-    public int CurrentHitPoints;
-    public int MaximumHitPoints;
-
-    /// <summary>
-    /// Boolean to check if the monster is still alive
-    /// </summary>
-    public bool IsAlive;
-    
-    /// <summary>
-    /// Constructor for the Monster class
-    /// </summary>
-    /// <param name="id">Monster ID</param>
-    /// <param name="name">Monster name</param>
-    /// <param name="maximumDamage">Maximum damage the monster can deal</param>
-    /// <param name="currentHitPoints">Monster's current hit points</param>
-    /// <param name="maximumHitPoints">Monster's maximum hit points</param>
-    public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints)
+    public class Monster
     {
-        ID = id;
-        Name = name;
-        MaximumDamage = maximumDamage;
-        CurrentHitPoints = currentHitPoints;
-        MaximumHitPoints = maximumHitPoints;
-        IsAlive = currentHitPoints > 0;
-    }
+        /// <summary>
+        /// Field for RNG
+        /// </summary>
+        Random rnd = new();
 
-    public void AddReward(Player player)
-    {
-        if (!IsAlive)
+        /// <summary>
+        /// Fields for monster properties
+        /// </summary>
+        public int ID;
+        public string Name;
+        public int MaximumDamage;
+        public int CurrentHitPoints;
+        public int MaximumHitPoints;
+
+        /// <summary>
+        /// Boolean to check if the monster is still alive
+        /// </summary>
+        public bool IsAlive;
+        
+        /// <summary>
+        /// Constructor for the Monster class
+        /// </summary>
+        /// <param name="id">Monster ID</param>
+        /// <param name="name">Monster name</param>
+        /// <param name="maximumDamage">Maximum damage the monster can deal</param>
+        /// <param name="currentHitPoints">Monster's current hit points</param>
+        /// <param name="maximumHitPoints">Monster's maximum hit points</param>
+        public Monster(int id, string name, int maximumDamage, int currentHitPoints, int maximumHitPoints)
         {
-            List<string> giveReward = new List<string> { "Health Potion" };
+            ID = id;
+            Name = name;
+            MaximumDamage = maximumDamage;
+            CurrentHitPoints = currentHitPoints;
+            MaximumHitPoints = maximumHitPoints;
+            IsAlive = currentHitPoints > 0;
+        }
 
-            // Reward chance 50/50
-            if (rnd.Next(0, 2) == 1)
+        /// <summary>
+        /// Method for the monster to attack the player
+        /// </summary>
+        public void MonsterAttack(Player player)
+        {
+            if (!IsAlive)
             {
-                string reward = giveReward[0];
-                player.Inventory.Add(reward);
-                Console.WriteLine($"You have received a {reward} for defeating the monster!");
+                Console.WriteLine("The monster is dead and cannot attack.");
+                return;
+            }
+
+            int damage = rnd.Next(0, MaximumDamage + 1);
+            player.CurrentHitPoints -= damage;
+
+            if (damage == 0)
+            {
+                Console.WriteLine("The monster attacked but missed.");
             }
             else
             {
-                Console.WriteLine("The monster did not drop any items.");
+                Console.WriteLine($"The monster attacked and did {damage} damage.");
+            }
+
+            if (player.CurrentHitPoints <= 0)
+            {
+                Console.WriteLine("The monster has killed you.");
+            }
+            else
+            {
+                Console.WriteLine($"Player currently has {player.CurrentHitPoints} hit points remaining.");
             }
         }
-        else
+
+        /// <summary>
+        /// Method for dealing damage to the monster
+        /// </summary>
+        /// <param name="damage">Amount of damage taken by the monster</param>
+        /// <param name="player">The player who dealt the damage</param>
+        public void TakeDamage(int damage, Player player)
         {
-            Console.WriteLine("The monster is still alive and cannot drop any items.");
+            if (!IsAlive)
+            {
+                Console.WriteLine("The monster is already dead.");
+                return;
+            }
+
+            CurrentHitPoints -= damage;
+
+            if (CurrentHitPoints <= 0)
+            {
+                CurrentHitPoints = 0;
+                IsAlive = false;
+                Console.WriteLine($"The monster has been defeated!");
+            }
+            else
+            {
+                Console.WriteLine($"The monster took {damage} damage and now has {CurrentHitPoints} hit points remaining.");
+            }
+        }
+
+        /// <summary>
+        /// Method to display the monster's remaining health
+        /// </summary>
+        public void MonsterHealth()
+        {
+            Console.WriteLine($"The monster has {CurrentHitPoints} hit points remaining.");
+            if (CurrentHitPoints <= 0)
+            {
+                IsAlive = false;
+                Console.WriteLine("The monster has been defeated.");
+            }
+        }
+
+        /// <summary>
+        /// Method to add a reward to the player's inventory upon defeating the monster
+        /// </summary>
+        /// <param name="player">The player who defeated the monster</param>
+        public void AddReward(Player player)
+        {
+            if (!IsAlive)
+            {
+                List<Item> giveReward = new List<Item> { new Item("Health Potion", "Simple health potion", true) };
+
+                // Reward chance 50/50
+                if (rnd.Next(0, 2) == 1)
+                {
+                    Item reward = giveReward[0];
+                    player.Inventory.Add(reward);
+                    Console.WriteLine($"You have received a {reward} for defeating the monster!");
+                }
+                else
+                {
+                    Console.WriteLine("The monster did not drop any items.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("The monster is still alive and cannot drop any items.");
+            }
         }
     }
 }

@@ -69,6 +69,9 @@ public static class SuperAdventure
             case "4":
                 Console.Clear();
                 player.Inventory.Represent();
+                Console.WriteLine("Do you want to use an item? (y for yes, everything else for no)");
+                string? input = Console.ReadLine()!.ToLower();
+                if(input == "y") UseItem();
                 PressToContinue();
                 break;
             case "5":
@@ -77,6 +80,41 @@ public static class SuperAdventure
             default:
                 break;
         }
+    }
+    /// <summary>
+    /// Functionality to use an item (for now only an health potion)
+    /// </summary>
+    public static void UseItem()
+    {
+        Console.WriteLine("Which item do you want to use? Write it's name. (write \"exit\" to leave)");
+        bool chosenAction = false;
+
+        while(!chosenAction)
+        {
+            string input = Console.ReadLine()!.ToLower();
+            if(input == "exit") chosenAction = true;
+            Item? item = player?.Inventory.FindItemByName(input);
+            if(item == null) Console.WriteLine("Item not found!");
+            else
+            {
+                if(item.Usable)
+                {
+                    if (item.Name == "HealthPotion")
+                    {
+                        player.CurrentHitPoints += player.MaximumHitPoint / 100 * 20;
+                        if(player.CurrentHitPoints > player.MaximumHitPoint) player.CurrentHitPoints = player.MaximumHitPoint;
+                        Console.WriteLine("You drink the health potion, feeling your wounds close up and your energy rising.");
+                    }
+                    chosenAction = true;
+                }
+                else
+                {
+                    Console.WriteLine("You can't use that item... I mean, not in this current state!");
+                }
+                
+            }
+        }
+        
     }
 
     public static bool DirectionPossible(Dictionary<string, int> IDtoLetter, List<Location> PossibleDirections, string locationToGo) {
