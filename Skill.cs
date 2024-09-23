@@ -19,6 +19,9 @@ public class Skill
 
     public static void Apply(Skill skill)
     {
+        if (skill == null) return;
+        if (SuperAdventure.player == null) return;
+
         if (skill.Description.ToLower().Contains("health"))
             SuperAdventure.player.MaximumHitPoint += skill.Amount;
         else

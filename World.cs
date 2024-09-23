@@ -1,8 +1,11 @@
 namespace ProjectAlpha;
 
+using System.Collections;
+using System.Collections.Specialized;
+
 public static class World
 {
-    public static readonly List<Skill> Skills = new List<Skill>();
+    public static readonly OrderedDictionary Skills = new OrderedDictionary();
     public static readonly List<Weapon> Weapons = new List<Weapon>();
     public static readonly List<Monster> Monsters = new List<Monster>();
     public static readonly List<Quest> Quests = new List<Quest>();
@@ -173,9 +176,9 @@ public static class World
         Skill healthTwo = new(2, "Health (2)", "Will increase your health by 10 points", 200, 10);
         Skill healthThree = new(3, "Health (3)", "Will increase your health by 20 points", 500, 20);
 
-        Skills.Add(healthOne);
-        Skills.Add(healthTwo);
-        Skills.Add(healthThree);
+        Skills.Add(healthOne.RequiredXP, healthOne);
+        Skills.Add(healthTwo.RequiredXP, healthTwo);
+        Skills.Add(healthThree.RequiredXP, healthThree);
     }
 
     public static Location? LocationByID(int id)
@@ -234,12 +237,10 @@ public static class World
 
     public static Skill? SkillByID(int id)
     {
-        foreach (Skill skill in Skills)
+        foreach (DictionaryEntry pair in Skills)
         {
-            if (skill.ID == id)
-            {
-                return skill;
-            }
+            Skill? skill = pair.Value as Skill;
+            if (skill.ID == id) return skill;
         }
 
         return null;

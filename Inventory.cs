@@ -1,4 +1,4 @@
-using System.Collections.Specialized;
+using System.Collections;
 
 namespace ProjectAlpha;
 public class Inventory
@@ -7,7 +7,7 @@ public class Inventory
 	readonly int Storage;
 	public object? Current;
 
-	public OrderedDictionary Skills = new();
+	public List<Skill> Skills = new();
 	public Dictionary<Quest, bool> Quests = new();
 	public Dictionary<object, int> Items = new();
 
@@ -46,7 +46,7 @@ public class Inventory
 		// add skills separately
 		if (item is Skill skill)
 		{
-			Skills.Add(skill.RequiredXP, item);
+			Skills.Add(skill);
 			Skill.Apply(skill);
 			return true;
 		}
@@ -97,7 +97,7 @@ public class Inventory
 	public List<object>? Filter(Type type)
 	{
 		// abort on invalid type 
-		if (!new List<Type>() { typeof(Weapon), typeof(Item) }.Contains(type))
+		if (!new List<Type>() { typeof(Weapon), typeof(Item), typeof(Skill) }.Contains(type))
 			return null;
 
 		// construct a list of explicitly requested type
@@ -111,10 +111,19 @@ public class Inventory
 
 	public void SkillTree()
 	{
-		foreach (Skill skill in Skills.Values)
+		foreach (DictionaryEntry entry in World.Skills)
 		{
+			Skill? skill = entry.Value as Skill;
+
+			if (Skills.Contains(skill))
+			{ Console.ForegroundColor = ConsoleColor.Green; }
+			
+			else
+			{ Console.ForegroundColor = ConsoleColor.Red; }
+			
 			Console.WriteLine(skill.ToString());
 		}
+		Console.ForegroundColor = ConsoleColor.White;
 	}
 
 	public void Represent()
