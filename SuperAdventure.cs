@@ -75,7 +75,9 @@ public static class SuperAdventure
                 PressToContinue();
                 break;
             case "5":
+                Console.Clear();
                 player.Inventory.SkillTree();
+                PressToContinue();
                 break;
             case "6":
                 Console.Clear();
