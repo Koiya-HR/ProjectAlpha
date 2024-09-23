@@ -78,9 +78,18 @@ public static class SuperAdventure
                 player.Inventory.SkillTree();
                 break;
             case "6":
-                player.Attack(player.CurrentLocation.MonsterLivingHere);
+                Console.Clear();
+                if (player.CurrentLocation.MonsterLivingHere == null) {
+                    Console.WriteLine("Wrong input, please input one of the shown values in the menu.\n");
+                } else {
+                    player.Attack(player.CurrentLocation.MonsterLivingHere);
+                }
+                PressToContinue();
                 break;
             default:
+                Console.Clear();
+                Console.WriteLine("Wrong input, please input one of the shown values in the menu.\n");
+                PressToContinue();
                 break;
         }
     }
