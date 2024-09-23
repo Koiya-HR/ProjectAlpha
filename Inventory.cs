@@ -32,7 +32,7 @@ public class Inventory
 	{
 		foreach(var entry in Items)
 		{
-			if(entry.Key is Item item && item.Name == name)
+			if(entry.Key is Item item && item.Name?.ToLower() == name)
 			{
 				return item;
 			}

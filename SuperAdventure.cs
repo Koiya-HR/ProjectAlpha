@@ -96,7 +96,7 @@ public static class SuperAdventure
         {
             string input = Console.ReadLine()!.ToLower();
             if(input == "exit") chosenAction = true;
-            Item? item = player?.Inventory.FindItemByName(input);
+            Item? item = player?.Inventory.FindItemByName(input.ToLower());
             if(item == null) Console.WriteLine("Item not found!");
             else
             {
