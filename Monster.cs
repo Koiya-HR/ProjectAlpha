@@ -120,12 +120,12 @@ namespace ProjectAlpha
         {
             if (!IsAlive)
             {
-                List<string> giveReward = new List<string> { new Item("Health Potion", "Simple health potion", true) };
+                List<Item> giveReward = new List<Item> { new Item("Health Potion", "Simple health potion", true) };
 
                 // Reward chance 50/50
                 if (rnd.Next(0, 2) == 1)
                 {
-                    string reward = giveReward[0];
+                    Item reward = giveReward[0];
                     player.Inventory.Add(reward);
                     Console.WriteLine($"You have received a {reward} for defeating the monster!");
                 }
