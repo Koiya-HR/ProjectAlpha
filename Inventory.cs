@@ -1,3 +1,5 @@
+using System.Collections.Frozen;
+
 namespace ProjectAlpha;
 public class Inventory
 {
@@ -19,6 +21,24 @@ public class Inventory
 		
 		Current = Items.ElementAt(slot);
 		return true;
+	}
+
+	/// <summary>
+	/// Used to find an item by it's Name value
+	/// </summary>
+	/// <param name="name">The name of the item</param>
+	/// <returns>The item in question</returns>
+	public Item? FindItemByName(string name)
+	{
+		foreach(var entry in Items)
+		{
+			if(entry.Key is Item item && item.Name == name)
+			{
+				return item;
+			}
+		}
+
+		return null;
 	}
 
 	public bool Add(object? item)
