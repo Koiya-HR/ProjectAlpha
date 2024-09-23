@@ -22,9 +22,9 @@ public class Skill
         if (skill.Description.ToLower().Contains("health"))
             SuperAdventure.player.MaximumHitPoint += skill.Amount;
         else
-            ; // increase damage
+            SuperAdventure.player.Damage += skill.Amount;
     }
 
-    public override string ToString() => $"|{new string('-', RequiredXP)} ({RequiredXP}) [{Name}]: {Description}";
+    public override string ToString() => $"|{new string('-', RequiredXP/100 + 1)} ({RequiredXP}) [{Name}]: {Description}";
 
 }

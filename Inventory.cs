@@ -4,7 +4,7 @@ namespace ProjectAlpha;
 public class Inventory
 {
 
-	public int Storage;
+	readonly int Storage;
 	public object? Current;
 
 	public OrderedDictionary Skills = new();
@@ -28,7 +28,7 @@ public class Inventory
 		// add skills separately
 		if (item is Skill skill)
 		{
-			Skills.Add(skill.RequiredXP, skill);
+			Skills.Add(skill.RequiredXP, item);
 			Skill.Apply(skill);
 			return true;
 		}
@@ -93,7 +93,7 @@ public class Inventory
 
 	public void SkillTree()
 	{
-		foreach (Skill skill in Skills)
+		foreach (Skill skill in Skills.Values)
 		{
 			Console.WriteLine(skill.ToString());
 		}

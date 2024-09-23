@@ -170,8 +170,8 @@ public static class World
     public static void PopulateSkills()
     {
         Skill healthOne = new(1, "Health (1)", "Will increase your health by 5 points", 50, 5);
-        Skill healthTwo = new(2, "Health (2)", "Will increase your health by 10 points", 150, 10);
-        Skill healthThree = new(3, "Health (3)", "Will increase your health by 20 points", 300, 20);
+        Skill healthTwo = new(2, "Health (2)", "Will increase your health by 10 points", 200, 10);
+        Skill healthThree = new(3, "Health (3)", "Will increase your health by 20 points", 500, 20);
 
         Skills.Add(healthOne);
         Skills.Add(healthTwo);
