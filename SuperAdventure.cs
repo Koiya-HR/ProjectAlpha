@@ -57,6 +57,8 @@ public static class SuperAdventure
                 if (player.CurrentHitPoints < player.MaximumHitPoint)
                 {
                     player.CurrentHitPoints = player.MaximumHitPoint;
+                    Console.WriteLine($"You healed to full HP!");
+                    Console.WriteLine($"Your current HP is: {player.CurrentHitPoints}/{player.MaximumHitPoint}\n");
                 }
                 else
                 {
@@ -145,5 +147,22 @@ public static class SuperAdventure
     public static void PressToContinue() {
         Console.WriteLine("\n\nPress enter to continue.");
         string? input = Console.ReadLine();
+    }
+
+    public static void MainGameLoop() {
+        SetPlayer();
+        while (player.Inventory.Quests.Values.Contains(false))
+        {
+            Console.WriteLine(GameMenu());
+            string? choice = Console.ReadLine();
+
+            while (choice == "") {
+                Console.WriteLine("Please pick one of the numerical values as given below:");
+                Console.WriteLine(GameMenu());
+                choice = Console.ReadLine();
+            }
+
+            PlayerChoice(player, choice);
+        }
     }
 }

@@ -6,7 +6,7 @@ public class Player {
     public int MaximumHitPoint;
     public int CurrentHitPoints;
     public int Damage;
-    public Weapon? CurrentWeapon;
+    public Weapon CurrentWeapon;
     public Location? CurrentLocation;
     public Inventory Inventory = new Inventory();
     private static Random rand = new Random();
@@ -16,7 +16,7 @@ public class Player {
     public Func<int> FinishedQuest;
 
     public Player(string name): this(name, World.WeaponByID(1), World.LocationByID(1), 10) { }
-    public Player(string name, Weapon? currentWeapon, Location? currentLocation, int currentHitPoints) {
+    public Player(string name, Weapon currentWeapon, Location? currentLocation, int currentHitPoints) {
         
         // set base properties
         Name = name;
@@ -39,8 +39,8 @@ public class Player {
     {
         while (monster.CurrentHitPoints > 0)
         {
-            Console.WriteLine($"Monsters HP remaning: {monster.CurrentHitPoints}/{monster.MaximumHitPoints}");
-            Console.WriteLine($"{Name}'s HP remaning: {CurrentHitPoints}/{MaximumHitPoint}");
+            Console.WriteLine($"Monsters remaning HP: {monster.CurrentHitPoints}/{monster.MaximumHitPoints}");
+            Console.WriteLine($"{Name}'s remaning HP: {CurrentHitPoints}/{MaximumHitPoint}");
             int attackDamage = Damage + CurrentWeapon.Damage;
             monster.CurrentHitPoints -= attackDamage;
 
