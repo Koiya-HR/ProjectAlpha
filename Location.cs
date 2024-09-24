@@ -50,7 +50,8 @@ public class Location
             { 6, [LocationToEast, LocationToWest] },
             { 7, [LocationToEast] },
             { 8, [LocationToWest, LocationToEast] },
-            { 9, [LocationToWest] }
+            { 9, [LocationToWest] },
+            { 10, [LocationToWest] }
         };
 
         Console.WriteLine($"You are currently at: {Name} (X)");
@@ -65,7 +66,7 @@ public class Location
                 Console.WriteLine("\n  |\n  A\n-FXG--\n  H");
                 return validDirections[2];
             case 3:
-                if (player.FinishedQuest() == 2)
+                if (player.Inventory.Quests[World.QuestByID(1)] == true && player.Inventory.Quests[World.QuestByID(2)] == true)
                 {
                     PrintPossibleLocations(validDirections, 3);
                     Console.WriteLine("\n  |\n  |\n--TXB-\n  |");
@@ -73,10 +74,9 @@ public class Location
                 }
                 else
                 {
-                    validDirections[3].Remove(LocationToEast);
-                    PrintPossibleLocations(validDirections, 3);
+                    PrintPossibleLocations(validDirections, 10);
                     Console.WriteLine("\n  |\n  |\n--TX--\n  |");
-                    return validDirections[3];
+                    return validDirections[10];
                 }
             case 4:
                 PrintPossibleLocations(validDirections, 4);

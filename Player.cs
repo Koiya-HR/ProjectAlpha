@@ -10,6 +10,7 @@ public class Player {
     public Location? CurrentLocation;
     public Inventory Inventory = new Inventory();
     private static Random rand = new Random();
+    public int QuestsCompleted = 0;
 
     // adapter
     public int KilledMonsters;
@@ -48,6 +49,7 @@ public class Player {
             {
                 Console.WriteLine($"{monster.Name} took {attackDamage} Damage!\n");
                 Console.WriteLine($"You've defeated the {monster.Name}!\n");
+                monster.AmountKilled++;
                 SuperAdventure.PressToContinue();
                 Console.Clear();
                 break;
@@ -77,6 +79,7 @@ public class Player {
                     Console.WriteLine($"Your HP dropped to {CurrentHitPoints}.\nYou died.\n");
                     SuperAdventure.PressToContinue();
                     Console.Clear();
+                    Environment.Exit(0);
                     break;
                 } else {
                     Console.WriteLine($"The {monster.Name} did {MonsterAttackDamage} damage to you!");
@@ -87,5 +90,14 @@ public class Player {
             }
         }
         monster.CurrentHitPoints = monster.MaximumHitPoints;
+    }
+
+    public void CompleteQuest(int QuestID) {
+        foreach (Quest quest in Inventory.Quests.Keys) {
+            if (quest.ID == QuestID) {
+                Inventory.Quests[quest] = true;
+                QuestsCompleted++;
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace ProjectAlpha
         /// Boolean to check if the monster is still alive
         /// </summary>
         public bool IsAlive;
+        public int AmountKilled = 0;
         
         /// <summary>
         /// Constructor for the Monster class

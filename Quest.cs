@@ -16,7 +16,7 @@ public class Quest(
     string npcDialogue,
     int difficulty)
 {
-    public Random rand = new();
+    private Random rand = new();
     public int ID = id;
     public string Name = name;
     public string Description = description;
@@ -48,7 +48,7 @@ public class Quest(
 
         if(chance >= 50) rewards.Add("Health potion");
         if(chance >= 75) rewards.Add("Sword");
-        if(rewards.Count != 3 && chance >= 90) rewards.Add("MOST EPICEST OF SWORDS!!1");
+        if(rewards.Count != 3 && chance >= 90) rewards.Add("MOST EPICEST OF SWORDS!!");
 
         return rewards;
     }

@@ -21,20 +21,20 @@ public static class SuperAdventure
             case 1: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
             case 2: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
             case 3:
-                if (player.FinishedQuest() < 2)
+                if (player.QuestsCompleted == 2)
                 {
-                    return $"You are not yet strong enough to pass onto the bridge {player.Name}\nGo back & finish 2 quests before coming back.\n\n(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
+                    return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
                 }
                 else
                 {
-                    return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
+                    return $"You are not yet strong enough to pass onto the bridge {player.Name}\nGo back & finish 2 quests before coming back.\n\n(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
                 }
             case 4: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
             case 5: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
             case 6: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
             case 7: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
-            case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n(5) View skills.\n";
-            case 9: return $"(1) Move.\n(2) Look around.\n(3) Rest.(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
+            case 8: return "(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n";
+            case 9: return $"(1) Move.\n(2) Look around.\n(3) Rest.\n(4) Check Inventory.\n(5) View skills.\n(6) Fight the {player.CurrentLocation.MonsterLivingHere.Name}\n";
             default: return "There was an error, please try again.";
         }
     }
@@ -69,9 +69,9 @@ public static class SuperAdventure
             case "4":
                 Console.Clear();
                 player.Inventory.Represent();
-                Console.WriteLine("Do you want to use an item? (y for yes, everything else for no)");
-                string? input = Console.ReadLine()!.ToLower();
-                if(input == "y") UseItem();
+                // Console.WriteLine("Do you want to use an item? (y for yes, everything else for no)");
+                // string? input = Console.ReadLine()!.ToLower();
+                // if(input == "y") UseItem();
                 PressToContinue();
                 break;
             case "5":
@@ -84,9 +84,22 @@ public static class SuperAdventure
                 if (player.CurrentLocation.MonsterLivingHere == null) {
                     Console.WriteLine("Wrong input, please input one of the shown values in the menu.\n");
                 } else {
-                    player.Attack(player.CurrentLocation.MonsterLivingHere);
+                    if (player.CurrentLocation.MonsterLivingHere.AmountKilled == 3 && player.CurrentLocation.MonsterLivingHere.ID == 1) {
+                        Console.WriteLine("It seems you've already killed all the monsters in this area..\nPerhaps search elsewhere?");
+                        player.CompleteQuest(1);
+                        PressToContinue();
+                    } else if (player.CurrentLocation.MonsterLivingHere.AmountKilled == 3 && player.CurrentLocation.MonsterLivingHere.ID == 2) {
+                        Console.WriteLine("It seems you've already killed all the monsters in this area..\nPerhaps search elsewhere?");
+                        player.CompleteQuest(2);
+                        PressToContinue();
+                    } else if (player.CurrentLocation.MonsterLivingHere.AmountKilled == 3 && player.CurrentLocation.MonsterLivingHere.ID == 3) {
+                        Console.WriteLine("It seems you've already killed all the monsters in this area..\nPerhaps search elsewhere?");
+                        player.CompleteQuest(3);
+                        PressToContinue();
+                    } else {
+                        player.Attack(player.CurrentLocation.MonsterLivingHere);
+                    }
                 }
-                PressToContinue();
                 break;
             default:
                 Console.Clear();
@@ -181,13 +194,22 @@ public static class SuperAdventure
         switch (player.CurrentLocation.ID)
         {
             case 4:
-                Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                if (player.Inventory.Quests[World.QuestByID(1)] == false) {
+                    Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                    break;
+                }
                 break;
             case 6:
-                Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                if (player.Inventory.Quests[World.QuestByID(2)] == false) {
+                    Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                    break;
+                }
                 break;
             case 8:
-                Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                if (player.Inventory.Quests[World.QuestByID(3)] == false) {
+                    Console.WriteLine(player.CurrentLocation.QuestAvailableHere.QuestInfo());
+                    break;
+                }
                 break;
             default:
                 break;
